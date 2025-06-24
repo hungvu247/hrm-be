@@ -121,6 +121,7 @@ D:\SUMMER2025\PRN232\ProjectHRM\human-resource-management\human-resource-managem
 D:\SUMMER2025\PRN232\ProjectHRM\human-resource-management\human-resource-management\obj\Debug\net8.0\human-resource-management.csproj.CoreCompileInputs.cache
 D:\SUMMER2025\PRN232\ProjectHRM\human-resource-management\human-resource-management\obj\Debug\net8.0\human-resource-management.MvcApplicationPartsAssemblyInfo.cs
 D:\SUMMER2025\PRN232\ProjectHRM\human-resource-management\human-resource-management\obj\Debug\net8.0\human-resource-management.MvcApplicationPartsAssemblyInfo.cache
+D:\SUMMER2025\PRN232\ProjectHRM\human-resource-management\human-resource-management\obj\Debug\net8.0\human-resource-management.sourcelink.json
 D:\SUMMER2025\PRN232\ProjectHRM\human-resource-management\human-resource-management\obj\Debug\net8.0\staticwebassets.build.json
 D:\SUMMER2025\PRN232\ProjectHRM\human-resource-management\human-resource-management\obj\Debug\net8.0\staticwebassets.development.json
 D:\SUMMER2025\PRN232\ProjectHRM\human-resource-management\human-resource-management\obj\Debug\net8.0\staticwebassets\msbuild.human-resource-management.Microsoft.AspNetCore.StaticWebAssets.props

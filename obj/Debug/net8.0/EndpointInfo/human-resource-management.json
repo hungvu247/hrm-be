@@ -1,0 +1,674 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "human-resource-management",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/Department": {
+      "get": {
+        "tags": [
+          "Department"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Department"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Department"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Department"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Department"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Department/{id}": {
+      "get": {
+        "tags": [
+          "Department"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Department"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Department"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Department"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Department"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Department"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/WeatherForecast": {
+      "get": {
+        "tags": [
+          "WeatherForecast"
+        ],
+        "operationId": "GetWeatherForecast",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Department": {
+        "type": "object",
+        "properties": {
+          "DepartmentId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "DepartmentName": {
+            "type": "string",
+            "nullable": true
+          },
+          "Description": {
+            "type": "string",
+            "nullable": true
+          },
+          "DepartmentBudgets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DepartmentBudget"
+            },
+            "nullable": true
+          },
+          "Employees": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Employee"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DepartmentBudget": {
+        "type": "object",
+        "properties": {
+          "BudgetId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "DepartmentId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Year": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "AllocatedBudget": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "UsedBudget": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "Department": {
+            "$ref": "#/components/schemas/Department"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Employee": {
+        "type": "object",
+        "properties": {
+          "EmployeeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "UserId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "FirstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "LastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "DateOfBirth": {
+            "type": "string",
+            "format": "date"
+          },
+          "PhoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "Address": {
+            "type": "string",
+            "nullable": true
+          },
+          "HireDate": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "Salary": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "Status": {
+            "type": "string",
+            "nullable": true
+          },
+          "PositionId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "DepartmentId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "Department": {
+            "$ref": "#/components/schemas/Department"
+          },
+          "EmployeeContacts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EmployeeContact"
+            },
+            "nullable": true
+          },
+          "EmployeeProjects": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EmployeeProject"
+            },
+            "nullable": true
+          },
+          "PerformanceReviews": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PerformanceReview"
+            },
+            "nullable": true
+          },
+          "Position": {
+            "$ref": "#/components/schemas/Position"
+          },
+          "PromotionHistories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PromotionHistory"
+            },
+            "nullable": true
+          },
+          "User": {
+            "$ref": "#/components/schemas/User"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EmployeeContact": {
+        "type": "object",
+        "properties": {
+          "ContactId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "EmployeeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ContactType": {
+            "type": "string",
+            "nullable": true
+          },
+          "ContactValue": {
+            "type": "string",
+            "nullable": true
+          },
+          "IsPrimary": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "Employee": {
+            "$ref": "#/components/schemas/Employee"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EmployeeProject": {
+        "type": "object",
+        "properties": {
+          "EmployeeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ProjectId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "RoleInProject": {
+            "type": "string",
+            "nullable": true
+          },
+          "Employee": {
+            "$ref": "#/components/schemas/Employee"
+          },
+          "Project": {
+            "$ref": "#/components/schemas/Project"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PerformanceReview": {
+        "type": "object",
+        "properties": {
+          "ReviewId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "EmployeeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ProjectId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ReviewDate": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "Score": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "Comments": {
+            "type": "string",
+            "nullable": true
+          },
+          "Employee": {
+            "$ref": "#/components/schemas/Employee"
+          },
+          "Project": {
+            "$ref": "#/components/schemas/Project"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Permission": {
+        "type": "object",
+        "properties": {
+          "PermissionId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "PermissionName": {
+            "type": "string",
+            "nullable": true
+          },
+          "Description": {
+            "type": "string",
+            "nullable": true
+          },
+          "Roles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Role"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Position": {
+        "type": "object",
+        "properties": {
+          "PositionId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "PositionName": {
+            "type": "string",
+            "nullable": true
+          },
+          "Employees": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Employee"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Project": {
+        "type": "object",
+        "properties": {
+          "ProjectId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ProjectName": {
+            "type": "string",
+            "nullable": true
+          },
+          "Description": {
+            "type": "string",
+            "nullable": true
+          },
+          "StartDate": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "EndDate": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "EmployeeProjects": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EmployeeProject"
+            },
+            "nullable": true
+          },
+          "PerformanceReviews": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PerformanceReview"
+            },
+            "nullable": true
+          },
+          "ProjectDocuments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProjectDocument"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProjectDocument": {
+        "type": "object",
+        "properties": {
+          "DocumentId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ProjectId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "DocumentName": {
+            "type": "string",
+            "nullable": true
+          },
+          "FilePath": {
+            "type": "string",
+            "nullable": true
+          },
+          "UploadDate": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "Project": {
+            "$ref": "#/components/schemas/Project"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PromotionHistory": {
+        "type": "object",
+        "properties": {
+          "PromotionId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "EmployeeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "OldPosition": {
+            "type": "string",
+            "nullable": true
+          },
+          "NewPosition": {
+            "type": "string",
+            "nullable": true
+          },
+          "PromotionDate": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "Employee": {
+            "$ref": "#/components/schemas/Employee"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Role": {
+        "type": "object",
+        "properties": {
+          "RoleId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "RoleName": {
+            "type": "string",
+            "nullable": true
+          },
+          "Description": {
+            "type": "string",
+            "nullable": true
+          },
+          "Users": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/User"
+            },
+            "nullable": true
+          },
+          "Permissions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Permission"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "UserId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Username": {
+            "type": "string",
+            "nullable": true
+          },
+          "Password": {
+            "type": "string",
+            "nullable": true
+          },
+          "Email": {
+            "type": "string",
+            "nullable": true
+          },
+          "RoleId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "Employees": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Employee"
+            },
+            "nullable": true
+          },
+          "Role": {
+            "$ref": "#/components/schemas/Role"
+          }
+        },
+        "additionalProperties": false
+      },
+      "WeatherForecast": {
+        "type": "object",
+        "properties": {
+          "Date": {
+            "type": "string",
+            "format": "date"
+          },
+          "TemperatureC": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "TemperatureF": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "Summary": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

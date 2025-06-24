@@ -1,6 +1,6 @@
 ﻿namespace human_resource_management.Dto
 {
-    public class Class
+    public class DepartmentDTO
     {
     }
 }
