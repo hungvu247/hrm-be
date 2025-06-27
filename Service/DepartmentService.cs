@@ -9,7 +9,7 @@ namespace human_resource_management.Service
         {
             _departmentRepository = departmentRepository;
         }
-        public async Task<List<Model.Department>> GetAllDepartmentsAsync()
+        public async Task<List<DepartmentDto>> GetAllDepartmentsAsync()
         {
             return await _departmentRepository.GetAllDepartmentsAsync();
         }
