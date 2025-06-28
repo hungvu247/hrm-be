@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace human_resource_management.Controllers
@@ -6,6 +7,8 @@ namespace human_resource_management.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Produces("application/json")]
+    [Authorize]
+   // Bảo vệ API bằng xác thực
     public class DepartmentController : ControllerBase
     {
         private readonly Service.DepartmentService _departmentService;

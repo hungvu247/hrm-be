@@ -1,5 +1,29 @@
 [
   {
+    "ContainingType": "human_resource_management.Controllers.AccountController",
+    "Method": "Login",
+    "RelativePath": "api/Account/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "loginRequestModel",
+        "Type": "human_resource_management.Model.LoginRequestModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "human_resource_management.Model.LoginResponseModel",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "human_resource_management.Controllers.DepartmentController",
     "Method": "GetDepartments",
     "RelativePath": "api/Department",

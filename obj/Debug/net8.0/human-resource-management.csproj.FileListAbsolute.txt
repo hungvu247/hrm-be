@@ -9,6 +9,7 @@ D:\SUMMER2025\PRN232\ProjectHRM\human-resource-management\human-resource-managem
 D:\SUMMER2025\PRN232\ProjectHRM\human-resource-management\human-resource-management\bin\Debug\net8.0\Azure.Core.dll
 D:\SUMMER2025\PRN232\ProjectHRM\human-resource-management\human-resource-management\bin\Debug\net8.0\Azure.Identity.dll
 D:\SUMMER2025\PRN232\ProjectHRM\human-resource-management\human-resource-management\bin\Debug\net8.0\Humanizer.dll
+D:\SUMMER2025\PRN232\ProjectHRM\human-resource-management\human-resource-management\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\SUMMER2025\PRN232\ProjectHRM\human-resource-management\human-resource-management\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
 D:\SUMMER2025\PRN232\ProjectHRM\human-resource-management\human-resource-management\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
 D:\SUMMER2025\PRN232\ProjectHRM\human-resource-management\human-resource-management\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
