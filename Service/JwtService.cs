@@ -25,17 +25,17 @@ namespace human_resource_management.Service
                 return null;
             }
 
-           
+
             var user = await _humanResourceManagementContext.Users
                 .FirstOrDefaultAsync(u => u.Username == requestModel.Username);
 
-       
+
             if (user is null || !PasswordHashHandler.VerifyPassword(requestModel.Password, user.Password))
             {
                 return null;
             }
 
-      
+
             var issuer = _configuration["JwtConfig:Issuer"];
             var audience = _configuration["JwtConfig:Audience"];
             var key = _configuration["JwtConfig:Key"];
@@ -49,14 +49,13 @@ namespace human_resource_management.Service
                 {
             new Claim(JwtRegisteredClaimNames.UniqueName, user.Username),
             new Claim(ClaimTypes.Name, user.Username)
-        }),
+                     }),
                 Expires = tokenExpiryTimeStamp,
                 Issuer = issuer,
                 Audience = audience,
-                SigningCredentials = new SigningCredentials(
-        new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtConfig:Key"])),
-        SecurityAlgorithms.HmacSha256Signature
-    )
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtConfig:Key"])),
+                                    SecurityAlgorithms.HmacSha256Signature
+                 )
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -72,7 +71,7 @@ namespace human_resource_management.Service
         }
         public async Task HashAllPlainTextPasswords()
         {
-         
+
             var users = await _humanResourceManagementContext.Users
                 .Where(u => u.Password.Length < 20)
                 .ToListAsync();
@@ -84,7 +83,7 @@ namespace human_resource_management.Service
 
                 string hashedPassword = PasswordHashHandler.HashPassword(oldPassword);
 
-               
+
                 user.Password = hashedPassword;
             }
 
