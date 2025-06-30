@@ -26,7 +26,7 @@ namespace human_resource_management.Service
             }
 
 
-            var user = await _humanResourceManagementContext.Users
+            var user = await _humanResourceManagementContext.Employees
                 .FirstOrDefaultAsync(u => u.Username == requestModel.Username);
 
 
@@ -72,7 +72,7 @@ namespace human_resource_management.Service
         public async Task HashAllPlainTextPasswords()
         {
 
-            var users = await _humanResourceManagementContext.Users
+            var users = await _humanResourceManagementContext.Employees
                 .Where(u => u.Password.Length < 20)
                 .ToListAsync();
 

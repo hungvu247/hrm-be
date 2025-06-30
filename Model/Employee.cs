@@ -7,8 +7,6 @@ public partial class Employee
 {
     public int EmployeeId { get; set; }
 
-    public int? UserId { get; set; }
-
     public string FirstName { get; set; } = null!;
 
     public string LastName { get; set; } = null!;
@@ -29,6 +27,14 @@ public partial class Employee
 
     public int? DepartmentId { get; set; }
 
+    public string? Username { get; set; }
+
+    public string? Password { get; set; }
+
+    public string? Email { get; set; }
+
+    public int? RoleId { get; set; }
+
     public virtual Department? Department { get; set; }
 
     public virtual ICollection<EmployeeContact> EmployeeContacts { get; set; } = new List<EmployeeContact>();
@@ -41,5 +47,5 @@ public partial class Employee
 
     public virtual ICollection<PromotionHistory> PromotionHistories { get; set; } = new List<PromotionHistory>();
 
-    public virtual User? User { get; set; }
+    public virtual Role? Role { get; set; }
 }

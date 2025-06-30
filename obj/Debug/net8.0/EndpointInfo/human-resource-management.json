@@ -280,11 +280,6 @@
             "type": "integer",
             "format": "int32"
           },
-          "UserId": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
           "FirstName": {
             "type": "string",
             "nullable": true
@@ -329,6 +324,23 @@
             "format": "int32",
             "nullable": true
           },
+          "Username": {
+            "type": "string",
+            "nullable": true
+          },
+          "Password": {
+            "type": "string",
+            "nullable": true
+          },
+          "Email": {
+            "type": "string",
+            "nullable": true
+          },
+          "RoleId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
           "Department": {
             "$ref": "#/components/schemas/Department"
           },
@@ -363,8 +375,8 @@
             },
             "nullable": true
           },
-          "User": {
-            "$ref": "#/components/schemas/User"
+          "Role": {
+            "$ref": "#/components/schemas/Role"
           }
         },
         "additionalProperties": false
@@ -662,10 +674,10 @@
             "type": "string",
             "nullable": true
           },
-          "Users": {
+          "Employees": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/User"
+              "$ref": "#/components/schemas/Employee"
             },
             "nullable": true
           },
@@ -675,43 +687,6 @@
               "$ref": "#/components/schemas/Permission"
             },
             "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "User": {
-        "type": "object",
-        "properties": {
-          "UserId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "Username": {
-            "type": "string",
-            "nullable": true
-          },
-          "Password": {
-            "type": "string",
-            "nullable": true
-          },
-          "Email": {
-            "type": "string",
-            "nullable": true
-          },
-          "RoleId": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "Employees": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Employee"
-            },
-            "nullable": true
-          },
-          "Role": {
-            "$ref": "#/components/schemas/Role"
           }
         },
         "additionalProperties": false

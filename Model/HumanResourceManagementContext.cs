@@ -41,17 +41,9 @@ public partial class HumanResourceManagementContext : DbContext
 
     public virtual DbSet<SkillCertificate> SkillCertificates { get; set; }
 
-    public virtual DbSet<User> Users { get; set; }
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        if (!optionsBuilder.IsConfigured)
-        {
-            var ConnectionString = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetConnectionString("MyCnn");
-            optionsBuilder.UseSqlServer(ConnectionString);
-        }
-
-    }
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("server =(local); database = human-resource-management; uid=sa;pwd=123;Trusted_Connection=True;Encrypt=False");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -105,6 +97,10 @@ public partial class HumanResourceManagementContext : DbContext
                 .HasColumnName("address");
             entity.Property(e => e.DateOfBirth).HasColumnName("date_of_birth");
             entity.Property(e => e.DepartmentId).HasColumnName("department_id");
+            entity.Property(e => e.Email)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("email");
             entity.Property(e => e.FirstName)
                 .HasMaxLength(255)
                 .IsUnicode(false)
@@ -114,11 +110,16 @@ public partial class HumanResourceManagementContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("last_name");
+            entity.Property(e => e.Password)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("password");
             entity.Property(e => e.PhoneNumber)
                 .HasMaxLength(20)
                 .IsUnicode(false)
                 .HasColumnName("phone_number");
             entity.Property(e => e.PositionId).HasColumnName("position_id");
+            entity.Property(e => e.RoleId).HasColumnName("role_id");
             entity.Property(e => e.Salary)
                 .HasColumnType("decimal(10, 2)")
                 .HasColumnName("salary");
@@ -126,7 +127,10 @@ public partial class HumanResourceManagementContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("status");
-            entity.Property(e => e.UserId).HasColumnName("user_id");
+            entity.Property(e => e.Username)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("username");
 
             entity.HasOne(d => d.Department).WithMany(p => p.Employees)
                 .HasForeignKey(d => d.DepartmentId)
@@ -136,9 +140,9 @@ public partial class HumanResourceManagementContext : DbContext
                 .HasForeignKey(d => d.PositionId)
                 .HasConstraintName("FK__employees__posit__31EC6D26");
 
-            entity.HasOne(d => d.User).WithMany(p => p.Employees)
-                .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__employees__user___30F848ED");
+            entity.HasOne(d => d.Role).WithMany(p => p.Employees)
+                .HasForeignKey(d => d.RoleId)
+                .HasConstraintName("fk_role_id");
         });
 
         modelBuilder.Entity<EmployeeContact>(entity =>
@@ -365,36 +369,6 @@ public partial class HumanResourceManagementContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("issued_by");
             entity.Property(e => e.SkillId).HasColumnName("skill_id");
-        });
-
-        modelBuilder.Entity<User>(entity =>
-        {
-            entity.HasKey(e => e.UserId).HasName("PK__users__B9BE370F5169810B");
-
-            entity.ToTable("users");
-
-            entity.HasIndex(e => e.Email, "UQ__users__AB6E6164EACCB569").IsUnique();
-
-            entity.HasIndex(e => e.Username, "UQ__users__F3DBC57299989DF3").IsUnique();
-
-            entity.Property(e => e.UserId).HasColumnName("user_id");
-            entity.Property(e => e.Email)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasColumnName("email");
-            entity.Property(e => e.Password)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasColumnName("password");
-            entity.Property(e => e.RoleId).HasColumnName("role_id");
-            entity.Property(e => e.Username)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasColumnName("username");
-
-            entity.HasOne(d => d.Role).WithMany(p => p.Users)
-                .HasForeignKey(d => d.RoleId)
-                .HasConstraintName("FK__users__role_id__2A4B4B5E");
         });
 
         OnModelCreatingPartial(modelBuilder);
