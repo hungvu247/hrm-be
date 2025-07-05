@@ -11,14 +11,31 @@ namespace human_resource_management.Repository
         {
             _context = context;
         }
-        public async Task<List<DepartmentDto>> GetAllDepartmentsAsync()
+        public async Task<object> SearchPagedDepartmentsAsync(string search, int skip, int top, string orderBy)
         {
-            var departments = await _context.Departments
+            var query = _context.Departments
                 .Include(d => d.Employees)
                 .ThenInclude(e => e.Position)
-                .ToListAsync();
+                .AsQueryable();
 
-            return departments.Select(dept => new DepartmentDto
+            if (!string.IsNullOrEmpty(search))
+            {
+                query = query.Where(d => d.DepartmentName.Contains(search));
+            }
+
+            var totalCount = await query.CountAsync();
+
+            // Sắp xếp (mặc định theo DepartmentName)
+            query = orderBy switch
+            {
+                "DepartmentName" => query.OrderBy(d => d.DepartmentName),
+                "Description" => query.OrderBy(d => d.Description),
+                _ => query.OrderBy(d => d.DepartmentId)
+            };
+
+            var paged = await query.Skip(skip).Take(top).ToListAsync();
+
+            var items = paged.Select(dept => new DepartmentDto
             {
                 DepartmentId = dept.DepartmentId,
                 DepartmentName = dept.DepartmentName,
@@ -29,8 +46,17 @@ namespace human_resource_management.Repository
                     FullName = e.FirstName + " " + e.LastName,
                     Position = e.Position?.PositionName
                 }).ToList()
-            }).ToList();
+            });
+
+            return new
+            {
+                TotalCount = totalCount,
+                Items = items,
+                PageSize = top,
+                Page = (skip / top) + 1
+            };
         }
+
 
         public async Task<DepartmentDto?> GetDepartmentByIdAsync(int id)
         {

@@ -48,6 +48,42 @@
         "tags": [
           "Department"
         ],
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "top",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "DepartmentName"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -213,26 +249,26 @@
       "Department": {
         "type": "object",
         "properties": {
-          "DepartmentId": {
+          "departmentId": {
             "type": "integer",
             "format": "int32"
           },
-          "DepartmentName": {
+          "departmentName": {
             "type": "string",
             "nullable": true
           },
-          "Description": {
+          "description": {
             "type": "string",
             "nullable": true
           },
-          "DepartmentBudgets": {
+          "departmentBudgets": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/DepartmentBudget"
             },
             "nullable": true
           },
-          "Employees": {
+          "employees": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Employee"
@@ -245,29 +281,29 @@
       "DepartmentBudget": {
         "type": "object",
         "properties": {
-          "BudgetId": {
+          "budgetId": {
             "type": "integer",
             "format": "int32"
           },
-          "DepartmentId": {
+          "departmentId": {
             "type": "integer",
             "format": "int32"
           },
-          "Year": {
+          "year": {
             "type": "integer",
             "format": "int32"
           },
-          "AllocatedBudget": {
+          "allocatedBudget": {
             "type": "number",
             "format": "double",
             "nullable": true
           },
-          "UsedBudget": {
+          "usedBudget": {
             "type": "number",
             "format": "double",
             "nullable": true
           },
-          "Department": {
+          "department": {
             "$ref": "#/components/schemas/Department"
           }
         },
@@ -276,106 +312,106 @@
       "Employee": {
         "type": "object",
         "properties": {
-          "EmployeeId": {
+          "employeeId": {
             "type": "integer",
             "format": "int32"
           },
-          "FirstName": {
+          "firstName": {
             "type": "string",
             "nullable": true
           },
-          "LastName": {
+          "lastName": {
             "type": "string",
             "nullable": true
           },
-          "DateOfBirth": {
+          "dateOfBirth": {
             "type": "string",
             "format": "date"
           },
-          "PhoneNumber": {
+          "phoneNumber": {
             "type": "string",
             "nullable": true
           },
-          "Address": {
+          "address": {
             "type": "string",
             "nullable": true
           },
-          "HireDate": {
+          "hireDate": {
             "type": "string",
             "format": "date",
             "nullable": true
           },
-          "Salary": {
+          "salary": {
             "type": "number",
             "format": "double",
             "nullable": true
           },
-          "Status": {
+          "status": {
             "type": "string",
             "nullable": true
           },
-          "PositionId": {
+          "positionId": {
             "type": "integer",
             "format": "int32",
             "nullable": true
           },
-          "DepartmentId": {
+          "departmentId": {
             "type": "integer",
             "format": "int32",
             "nullable": true
           },
-          "Username": {
+          "username": {
             "type": "string",
             "nullable": true
           },
-          "Password": {
+          "password": {
             "type": "string",
             "nullable": true
           },
-          "Email": {
+          "email": {
             "type": "string",
             "nullable": true
           },
-          "RoleId": {
+          "roleId": {
             "type": "integer",
             "format": "int32",
             "nullable": true
           },
-          "Department": {
+          "department": {
             "$ref": "#/components/schemas/Department"
           },
-          "EmployeeContacts": {
+          "employeeContacts": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/EmployeeContact"
             },
             "nullable": true
           },
-          "EmployeeProjects": {
+          "employeeProjects": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/EmployeeProject"
             },
             "nullable": true
           },
-          "PerformanceReviews": {
+          "performanceReviews": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/PerformanceReview"
             },
             "nullable": true
           },
-          "Position": {
+          "position": {
             "$ref": "#/components/schemas/Position"
           },
-          "PromotionHistories": {
+          "promotionHistories": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/PromotionHistory"
             },
             "nullable": true
           },
-          "Role": {
+          "role": {
             "$ref": "#/components/schemas/Role"
           }
         },
@@ -384,27 +420,27 @@
       "EmployeeContact": {
         "type": "object",
         "properties": {
-          "ContactId": {
+          "contactId": {
             "type": "integer",
             "format": "int32"
           },
-          "EmployeeId": {
+          "employeeId": {
             "type": "integer",
             "format": "int32"
           },
-          "ContactType": {
+          "contactType": {
             "type": "string",
             "nullable": true
           },
-          "ContactValue": {
+          "contactValue": {
             "type": "string",
             "nullable": true
           },
-          "IsPrimary": {
+          "isPrimary": {
             "type": "boolean",
             "nullable": true
           },
-          "Employee": {
+          "employee": {
             "$ref": "#/components/schemas/Employee"
           }
         },
@@ -413,22 +449,22 @@
       "EmployeeProject": {
         "type": "object",
         "properties": {
-          "EmployeeId": {
+          "employeeId": {
             "type": "integer",
             "format": "int32"
           },
-          "ProjectId": {
+          "projectId": {
             "type": "integer",
             "format": "int32"
           },
-          "RoleInProject": {
+          "roleInProject": {
             "type": "string",
             "nullable": true
           },
-          "Employee": {
+          "employee": {
             "$ref": "#/components/schemas/Employee"
           },
-          "Project": {
+          "project": {
             "$ref": "#/components/schemas/Project"
           }
         },
@@ -437,11 +473,11 @@
       "LoginRequestModel": {
         "type": "object",
         "properties": {
-          "Username": {
+          "username": {
             "type": "string",
             "nullable": true
           },
-          "Password": {
+          "password": {
             "type": "string",
             "nullable": true
           }
@@ -451,15 +487,15 @@
       "LoginResponseModel": {
         "type": "object",
         "properties": {
-          "AccessToken": {
+          "accessToken": {
             "type": "string",
             "nullable": true
           },
-          "ExpiresIn": {
+          "expiresIn": {
             "type": "integer",
             "format": "int32"
           },
-          "UserName": {
+          "userName": {
             "type": "string",
             "nullable": true
           }
@@ -469,36 +505,36 @@
       "PerformanceReview": {
         "type": "object",
         "properties": {
-          "ReviewId": {
+          "reviewId": {
             "type": "integer",
             "format": "int32"
           },
-          "EmployeeId": {
+          "employeeId": {
             "type": "integer",
             "format": "int32"
           },
-          "ProjectId": {
+          "projectId": {
             "type": "integer",
             "format": "int32"
           },
-          "ReviewDate": {
+          "reviewDate": {
             "type": "string",
             "format": "date",
             "nullable": true
           },
-          "Score": {
+          "score": {
             "type": "integer",
             "format": "int32",
             "nullable": true
           },
-          "Comments": {
+          "comments": {
             "type": "string",
             "nullable": true
           },
-          "Employee": {
+          "employee": {
             "$ref": "#/components/schemas/Employee"
           },
-          "Project": {
+          "project": {
             "$ref": "#/components/schemas/Project"
           }
         },
@@ -507,19 +543,19 @@
       "Permission": {
         "type": "object",
         "properties": {
-          "PermissionId": {
+          "permissionId": {
             "type": "integer",
             "format": "int32"
           },
-          "PermissionName": {
+          "permissionName": {
             "type": "string",
             "nullable": true
           },
-          "Description": {
+          "description": {
             "type": "string",
             "nullable": true
           },
-          "Roles": {
+          "roles": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Role"
@@ -532,15 +568,15 @@
       "Position": {
         "type": "object",
         "properties": {
-          "PositionId": {
+          "positionId": {
             "type": "integer",
             "format": "int32"
           },
-          "PositionName": {
+          "positionName": {
             "type": "string",
             "nullable": true
           },
-          "Employees": {
+          "employees": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Employee"
@@ -553,43 +589,43 @@
       "Project": {
         "type": "object",
         "properties": {
-          "ProjectId": {
+          "projectId": {
             "type": "integer",
             "format": "int32"
           },
-          "ProjectName": {
+          "projectName": {
             "type": "string",
             "nullable": true
           },
-          "Description": {
+          "description": {
             "type": "string",
             "nullable": true
           },
-          "StartDate": {
-            "type": "string",
-            "format": "date",
-            "nullable": true
-          },
-          "EndDate": {
+          "startDate": {
             "type": "string",
             "format": "date",
             "nullable": true
           },
-          "EmployeeProjects": {
+          "endDate": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "employeeProjects": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/EmployeeProject"
             },
             "nullable": true
           },
-          "PerformanceReviews": {
+          "performanceReviews": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/PerformanceReview"
             },
             "nullable": true
           },
-          "ProjectDocuments": {
+          "projectDocuments": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ProjectDocument"
@@ -602,28 +638,28 @@
       "ProjectDocument": {
         "type": "object",
         "properties": {
-          "DocumentId": {
+          "documentId": {
             "type": "integer",
             "format": "int32"
           },
-          "ProjectId": {
+          "projectId": {
             "type": "integer",
             "format": "int32"
           },
-          "DocumentName": {
+          "documentName": {
             "type": "string",
             "nullable": true
           },
-          "FilePath": {
+          "filePath": {
             "type": "string",
             "nullable": true
           },
-          "UploadDate": {
+          "uploadDate": {
             "type": "string",
             "format": "date",
             "nullable": true
           },
-          "Project": {
+          "project": {
             "$ref": "#/components/schemas/Project"
           }
         },
@@ -632,28 +668,28 @@
       "PromotionHistory": {
         "type": "object",
         "properties": {
-          "PromotionId": {
+          "promotionId": {
             "type": "integer",
             "format": "int32"
           },
-          "EmployeeId": {
+          "employeeId": {
             "type": "integer",
             "format": "int32"
           },
-          "OldPosition": {
+          "oldPosition": {
             "type": "string",
             "nullable": true
           },
-          "NewPosition": {
+          "newPosition": {
             "type": "string",
             "nullable": true
           },
-          "PromotionDate": {
+          "promotionDate": {
             "type": "string",
             "format": "date",
             "nullable": true
           },
-          "Employee": {
+          "employee": {
             "$ref": "#/components/schemas/Employee"
           }
         },
@@ -662,26 +698,26 @@
       "Role": {
         "type": "object",
         "properties": {
-          "RoleId": {
+          "roleId": {
             "type": "integer",
             "format": "int32"
           },
-          "RoleName": {
+          "roleName": {
             "type": "string",
             "nullable": true
           },
-          "Description": {
+          "description": {
             "type": "string",
             "nullable": true
           },
-          "Employees": {
+          "employees": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Employee"
             },
             "nullable": true
           },
-          "Permissions": {
+          "permissions": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Permission"
@@ -694,20 +730,20 @@
       "WeatherForecast": {
         "type": "object",
         "properties": {
-          "Date": {
+          "date": {
             "type": "string",
             "format": "date"
           },
-          "TemperatureC": {
+          "temperatureC": {
             "type": "integer",
             "format": "int32"
           },
-          "TemperatureF": {
+          "temperatureF": {
             "type": "integer",
             "format": "int32",
             "readOnly": true
           },
-          "Summary": {
+          "summary": {
             "type": "string",
             "nullable": true
           }

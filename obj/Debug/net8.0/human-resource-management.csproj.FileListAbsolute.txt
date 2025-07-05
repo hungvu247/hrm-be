@@ -137,3 +137,8 @@ D:\SUMMER2025\PRN232\ProjectHRM\human-resource-management\human-resource-managem
 D:\SUMMER2025\PRN232\ProjectHRM\human-resource-management\human-resource-management\obj\Debug\net8.0\human-resource-management.pdb
 D:\SUMMER2025\PRN232\ProjectHRM\human-resource-management\human-resource-management\obj\Debug\net8.0\human-resource-management.genruntimeconfig.cache
 D:\SUMMER2025\PRN232\ProjectHRM\human-resource-management\human-resource-management\obj\Debug\net8.0\ref\human-resource-management.dll
+D:\SUMMER2025\PRN232\ProjectHRM\human-resource-management\human-resource-management\bin\Debug\net8.0\Microsoft.AspNetCore.OData.dll
+D:\SUMMER2025\PRN232\ProjectHRM\human-resource-management\human-resource-management\bin\Debug\net8.0\Microsoft.OData.Core.dll
+D:\SUMMER2025\PRN232\ProjectHRM\human-resource-management\human-resource-management\bin\Debug\net8.0\Microsoft.OData.Edm.dll
+D:\SUMMER2025\PRN232\ProjectHRM\human-resource-management\human-resource-management\bin\Debug\net8.0\Microsoft.OData.ModelBuilder.dll
+D:\SUMMER2025\PRN232\ProjectHRM\human-resource-management\human-resource-management\bin\Debug\net8.0\Microsoft.Spatial.dll

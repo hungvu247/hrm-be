@@ -1,4 +1,5 @@
 ﻿using human_resource_management.Dto;
+using human_resource_management.Model;
 
 namespace human_resource_management.Service
 {
@@ -9,9 +10,9 @@ namespace human_resource_management.Service
         {
             _departmentRepository = departmentRepository;
         }
-        public async Task<List<DepartmentDto>> GetAllDepartmentsAsync()
+        public async Task<object> SearchPagedDepartmentsAsync(string? search, int page, int pageSize, string sort)
         {
-            return await _departmentRepository.GetAllDepartmentsAsync();
+            return await _departmentRepository.SearchPagedDepartmentsAsync(search, page, pageSize, sort);
         }
         public async Task<DepartmentDto> GetDepartmentByIdAsync(int id)
         {

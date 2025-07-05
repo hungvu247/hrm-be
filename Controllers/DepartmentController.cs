@@ -8,7 +8,7 @@ namespace human_resource_management.Controllers
     [ApiController]
     [Produces("application/json")]
     [Authorize]
-   // Bảo vệ API bằng xác thực
+    // Bảo vệ API bằng xác thực
     public class DepartmentController : ControllerBase
     {
         private readonly Service.DepartmentService _departmentService;
@@ -18,11 +18,18 @@ namespace human_resource_management.Controllers
         }
         [HttpGet]
         [Produces("application/json")]
-        public async Task<IActionResult> GetDepartments()
+        public async Task<IActionResult> GetDepartments(
+     string search = "",
+     int skip = 0,
+     int top = 10,
+     string orderBy = "DepartmentName"
+ )
         {
-            var departments = await _departmentService.GetAllDepartmentsAsync();
-            return Ok(departments); // đảm bảo trả về JSON
+            var result = await _departmentService.SearchPagedDepartmentsAsync(search, skip, top, orderBy);
+            return Ok(result);
         }
+
+
 
         [HttpGet("{id}")]
         [Produces("application/json")] // Bắt buộc trả JSON
