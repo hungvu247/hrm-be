@@ -13,16 +13,20 @@ var builder = WebApplication.CreateBuilder(args);
 // ───────────────────────────────────────
 // CONFIG DATABASE & CONTROLLERS
 // ───────────────────────────────────────
-builder.Services.AddControllers()
-    .AddJsonOptions(options =>
-    {
+builder.Services.AddControllers(options =>
+{
+    // Tắt kiểm tra strict với Accept header (tránh lỗi 406)
+    options.ReturnHttpNotAcceptable = false;
+})
+.AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+});
 
-        options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-    });
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDbContext<HumanResourceManagementContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("MyCnn")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MyCnn")).LogTo(Console.WriteLine, LogLevel.Information));
 
 
 // ───────────────────────────────────────

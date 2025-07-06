@@ -37,13 +37,15 @@ public partial class HumanResourceManagementContext : DbContext
 
     public virtual DbSet<PromotionHistory> PromotionHistories { get; set; }
 
+    public virtual DbSet<RefreshToken> RefreshTokens { get; set; }
+
     public virtual DbSet<Role> Roles { get; set; }
 
     public virtual DbSet<SkillCertificate> SkillCertificates { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("server =(local); database = human-resource-management; uid=sa;pwd=123;Trusted_Connection=True;Encrypt=False");
+        => optionsBuilder.UseSqlServer("server =(local); database =human-resource-management; uid=sa;pwd=123;Trusted_Connection=True;Encrypt=False");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -56,11 +58,11 @@ public partial class HumanResourceManagementContext : DbContext
             entity.Property(e => e.DepartmentId).HasColumnName("department_id");
             entity.Property(e => e.DepartmentName)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("department_name");
-            entity.Property(e => e.Description)
-                .IsUnicode(false)
-                .HasColumnName("description");
+            entity.Property(e => e.Description).HasColumnName("description");
+            entity.Property(e => e.Status)
+                .HasMaxLength(50)
+                .HasColumnName("status");
         });
 
         modelBuilder.Entity<DepartmentBudget>(entity =>
@@ -244,7 +246,6 @@ public partial class HumanResourceManagementContext : DbContext
             entity.Property(e => e.PositionId).HasColumnName("position_id");
             entity.Property(e => e.PositionName)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("position_name");
         });
 
@@ -312,6 +313,24 @@ public partial class HumanResourceManagementContext : DbContext
                 .HasForeignKey(d => d.EmployeeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__promotion__emplo__5FB337D6");
+        });
+
+        modelBuilder.Entity<RefreshToken>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__RefreshT__3214EC072A76D0EE");
+
+            entity.Property(e => e.AddedDate)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.EmployeeId).HasColumnName("Employee_id");
+            entity.Property(e => e.ExpiryDate).HasColumnType("datetime");
+            entity.Property(e => e.JwtId).HasMaxLength(200);
+            entity.Property(e => e.Token).HasMaxLength(200);
+
+            entity.HasOne(d => d.Employee).WithMany(p => p.RefreshTokens)
+                .HasForeignKey(d => d.EmployeeId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_RefreshTokens_AspNetUsers");
         });
 
         modelBuilder.Entity<Role>(entity =>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace human_resource_management.Controllers
 {
@@ -69,6 +70,30 @@ namespace human_resource_management.Controllers
             await _departmentService.DeleteDepartmentAsync(id);
             return NoContent();
         }
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> UpdateDepartmentStatus(int id, [FromBody] JsonElement body)
+        {
+            if (!body.TryGetProperty("status", out var statusElement))
+            {
+                return BadRequest("Missing 'status' field.");
+            }
+
+            string status = statusElement.GetString() ?? "Inactive";
+
+            // ✅ Lấy thực thể gốc từ DB, không phải DTO
+            var department = await _departmentService.GetDepartmentByIdAsync(id);
+            if (department == null)
+            {
+                return NotFound();
+            }
+
+            // ✅ Gán trực tiếp field
+            department.Status = status;
+
+            await _departmentService.DeleteDepartmentAsync(id);
+            return NoContent();
+        }
+
 
     }
 }

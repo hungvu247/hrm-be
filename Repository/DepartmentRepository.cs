@@ -1,5 +1,6 @@
 ﻿using human_resource_management.Dto;
 using human_resource_management.Model;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace human_resource_management.Repository
@@ -17,7 +18,7 @@ namespace human_resource_management.Repository
                 .Include(d => d.Employees)
                 .ThenInclude(e => e.Position)
                 .AsQueryable();
-
+            query = query.Where(d => d.Status == "Active");
             if (!string.IsNullOrEmpty(search))
             {
                 query = query.Where(d => d.DepartmentName.Contains(search));
@@ -102,11 +103,15 @@ namespace human_resource_management.Repository
         public async Task DeleteDepartmentAsync(int id)
         {
             var department = await GetDepartmentEntityByIdAsync(id);
+            
             if (department != null)
             {
-                _context.Departments.Remove(department);
+                department.Status = "Inactive"; // Giả sử bạn muốn đánh dấu là không hoạt động thay vì xóa
+                _context.Departments.Update(department);
                 await _context.SaveChangesAsync();
-            }
+
+               
+                    }
         }
     }
 }

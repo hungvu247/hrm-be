@@ -28,5 +28,18 @@ namespace human_resource_management.Controllers
             }
             return result;
         }
+        [AllowAnonymous]
+        [HttpPost("refresh-token")]
+        public async Task<IActionResult> Refresh([FromBody] TokenRequestModel model)
+        {
+            var result = await _accountService.RefreshToken(model);
+            if (result == null)
+            {
+                return Unauthorized(new { message = "Refresh token không hợp lệ hoặc đã hết hạn" });
+            }
+
+            return Ok(result);
+        }
+
     }
 }

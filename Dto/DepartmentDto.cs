@@ -5,6 +5,7 @@
         public int DepartmentId { get; set; }
         public string DepartmentName { get; set; } = null!;
         public string? Description { get; set; }
+        public string? Status { get; set; }
         public List<EmployeeDto> Employees { get; set; } = new();
     }
     public class EmployeeDto
