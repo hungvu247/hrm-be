@@ -7,6 +7,12 @@
         public string? Description { get; set; }
         public List<EmployeeDto> Employees { get; set; } = new();
     }
+    public class DepartmentDto2
+    {
+        public int DepartmentId { get; set; }
+        public string DepartmentName { get; set; } = null!;
+        public string? Description { get; set; }
+    }
     public class EmployeeDto
     {
         public int EmployeeId { get; set; }

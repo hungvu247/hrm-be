@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using human_resource_management.Mapper;
+using human_resource_management.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,7 +9,7 @@ namespace human_resource_management.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Produces("application/json")]
-    [Authorize]
+    //[Authorize]
    // Bảo vệ API bằng xác thực
     public class DepartmentController : ControllerBase
     {
@@ -16,13 +18,28 @@ namespace human_resource_management.Controllers
         {
             _departmentService = departmentService;
         }
-        [HttpGet]
+        [HttpGet()]
         [Produces("application/json")]
         public async Task<IActionResult> GetDepartments()
         {
             var departments = await _departmentService.GetAllDepartmentsAsync();
             return Ok(departments); // đảm bảo trả về JSON
         }
+
+        [HttpGet("get-all-department")]
+        [Produces("application/json")]
+        public async Task<IActionResult> GetDepartments2()
+        {
+            var departments = await _departmentService.GetAllDepartmentsAsync();
+            var result = departments.Select(d => new
+            {
+                DepartmentId = d.DepartmentId,
+                DepartmentName = d.DepartmentName,
+                Description = d.Description
+            });
+            return Ok(result); // đảm bảo trả về JSON
+        }
+
 
         [HttpGet("{id}")]
         [Produces("application/json")] // Bắt buộc trả JSON

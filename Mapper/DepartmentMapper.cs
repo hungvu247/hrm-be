@@ -21,6 +21,16 @@ namespace human_resource_management.Mapper
             };
         }
 
+        public static DepartmentDto2 ToDto2(DepartmentDto department)
+        {
+            return new DepartmentDto2
+            {
+                DepartmentId = department.DepartmentId,
+                DepartmentName = department.DepartmentName,
+                Description = department.Description,
+            };
+        }
+
         public static Department ToEntity(DepartmentDto dto)
         {
             return new Department

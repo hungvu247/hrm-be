@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "7MZbv2PqU1o=",
+  "dgSpecHash": "QE67v3V/wHQ=",
   "success": true,
-  "projectFilePath": "D:\\SUMMER2025\\PRN232\\ProjectHRM\\human-resource-management\\human-resource-management\\human-resource-management.csproj",
+  "projectFilePath": "D:\\FPTU\\SU25\\PRN232\\FinalProject\\hrm-be\\human-resource-management.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\admin\\.nuget\\packages\\automapper\\14.0.0\\automapper.14.0.0.nupkg.sha512",
     "C:\\Users\\admin\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\admin\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\bcrypt.net-next\\3.5.0\\bcrypt.net-next.3.5.0.nupkg.sha512",
     "C:\\Users\\admin\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\admin\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\8.0.0\\microsoft.aspnetcore.authentication.jwtbearer.8.0.0.nupkg.sha512",
     "C:\\Users\\admin\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",

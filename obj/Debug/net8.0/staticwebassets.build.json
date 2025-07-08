@@ -1,11 +1,12 @@
 {
   "Version": 1,
-  "Hash": "BiyXmcYnPG/tEYWdtbzJUQFcVKV672eC3g6fAcEBa7o=",
+  "Hash": "cuVCv2c3ZRj2ku71ADhsxbHNgdeTPHHVF6sSKRFjf4Y=",
   "Source": "human-resource-management",
   "BasePath": "_content/human-resource-management",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [],
-  "Assets": []
+  "Assets": [],
+  "Endpoints": []
 }
