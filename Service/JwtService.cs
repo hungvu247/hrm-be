@@ -89,6 +89,7 @@ namespace human_resource_management.Service
             // 4. Trả kết quả
             return new LoginResponseModel
             {
+                EmployeeId = user.EmployeeId,
                 AccessToken = accessToken,
                 RefreshToken = refreshToken.Token,
                 ExpiresIn = (int)(accessTokenExpiry - DateTime.UtcNow).TotalSeconds,
