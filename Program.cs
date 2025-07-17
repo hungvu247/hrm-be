@@ -1,4 +1,5 @@
-﻿using human_resource_management.Model;
+﻿using human_resource_management.Mapper;
+using human_resource_management.Model;
 using human_resource_management.Repository;
 using human_resource_management.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -96,6 +97,10 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+// ───────────────────────────────────────
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+
 
 // ───────────────────────────────────────
 // DEPENDENCY INJECTION
@@ -126,6 +131,8 @@ app.Use(async (context, next) =>
     context.Response.Headers.Add("Content-Type", "application/json; charset=utf-8");
     await next();
 });
+
+app.MapControllers();
 
 // MUST ORDER: HTTPS -> CORS -> Auth -> Controllers
 app.UseHttpsRedirection();
