@@ -12,6 +12,26 @@ namespace human_resource_management.Repository
         {
             _context = context;
         }
+        public async Task<List<DepartmentDto>> GetAllDepartmentsAsync()
+        {
+            var departments = await _context.Departments
+                .Include(d => d.Employees)
+                .ThenInclude(e => e.Position)
+                .ToListAsync();
+
+            return departments.Select(dept => new DepartmentDto
+            {
+                DepartmentId = dept.DepartmentId,
+                DepartmentName = dept.DepartmentName,
+                Description = dept.Description,
+                Employees = dept.Employees.Select(e => new EmployeeDto
+                {
+                    EmployeeId = e.EmployeeId,
+                    FullName = e.FirstName + " " + e.LastName,
+                    Position = e.Position?.PositionName
+                }).ToList()
+            }).ToList();
+        }
         public async Task<object> SearchPagedDepartmentsAsync(string search, int skip, int top, string orderBy)
         {
             var query = _context.Departments

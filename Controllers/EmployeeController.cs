@@ -4,7 +4,6 @@ using human_resource_management.Model;
 using human_resource_management.Service;
 using human_resource_management.Util;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

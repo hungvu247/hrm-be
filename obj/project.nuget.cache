@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "scnJLQuS6Ts=",
+  "dgSpecHash": "2apwu1RtirI=",
   "success": true,
-  "projectFilePath": "D:\\SUMMER2025\\PRN232\\ProjectHRM\\human-resource-management\\human-resource-management\\human-resource-management.csproj",
+  "projectFilePath": "D:\\FPTU\\SU25\\PRN232\\FinalProject\\hrm-be\\human-resource-management.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\admin\\.nuget\\packages\\automapper\\14.0.0\\automapper.14.0.0.nupkg.sha512",
     "C:\\Users\\admin\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",

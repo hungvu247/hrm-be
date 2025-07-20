@@ -14,6 +14,10 @@ namespace human_resource_management.Service
         {
             return await _departmentRepository.SearchPagedDepartmentsAsync(search, page, pageSize, sort);
         }
+        public async Task<List<DepartmentDto>> GetAllDepartmentsAsync()
+        {
+            return await _departmentRepository.GetAllDepartmentsAsync();
+        }
         public async Task<DepartmentDto> GetDepartmentByIdAsync(int id)
         {
             return await _departmentRepository.GetDepartmentByIdAsync(id);

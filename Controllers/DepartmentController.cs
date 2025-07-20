@@ -8,7 +8,7 @@ namespace human_resource_management.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Produces("application/json")]
-    [Authorize]
+    //[Authorize]
     // Bảo vệ API bằng xác thực
     public class DepartmentController : ControllerBase
     {
@@ -17,6 +17,22 @@ namespace human_resource_management.Controllers
         {
             _departmentService = departmentService;
         }
+
+
+        [HttpGet("get-all-department")]
+        [Produces("application/json")]
+        public async Task<IActionResult> GetDepartments2()
+        {
+            var departments = await _departmentService.GetAllDepartmentsAsync();
+            var result = departments.Select(d => new
+            {
+                DepartmentId = d.DepartmentId,
+                DepartmentName = d.DepartmentName,
+                Description = d.Description
+            });
+            return Ok(result); // đảm bảo trả về JSON
+        }
+
         [HttpGet]
         [Produces("application/json")]
         public async Task<IActionResult> GetDepartments(
