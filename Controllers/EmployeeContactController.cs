@@ -89,10 +89,10 @@ namespace human_resource_management.Controllers
             return Ok(EmployeeContactMapper.ToDto(contact));
         }
 
-        
+
         [HttpDelete("delete-contact/{id}")]
         [Produces("application/json")]
-        
+
         public async Task<IActionResult> DeleteContactById(int id)
         {
             var contact = _context.EmployeeContacts
@@ -105,6 +105,22 @@ namespace human_resource_management.Controllers
             }
             return NotFound("Không tồn tại contact với id : " + id);
         }
+
+        [HttpGet("get-by-id/{id}")]
+        [Produces("application/json")]
+
+        public async Task<IActionResult> GetById(int id)
+        {
+            var contact = _context.EmployeeContacts
+                .FirstOrDefault(e => e.ContactId == id);
+            if (contact != null)
+            {          
+                return Ok(EmployeeContactMapper.ToDto(contact));
+            }
+            return NotFound("Không tồn tại contact với id : " + id);
+        }
+
+
 
         [HttpDelete("delete-contact/{employeeId:int}/{type:int}")]
         [Produces("application/json")]

@@ -1,0 +1,206 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\FPTU\\SU25\\PRN232\\FinalProject\\hrm-be-2\\hrm-be\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{4FF7973A-34D9-4BD8-A3A3-92D98D70DB01}|human-resource-management.csproj|d:\\fptu\\su25\\prn232\\finalproject\\hrm-be-2\\hrm-be\\controllers\\employeeprojectcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4FF7973A-34D9-4BD8-A3A3-92D98D70DB01}|human-resource-management.csproj|solutionrelative:controllers\\employeeprojectcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4FF7973A-34D9-4BD8-A3A3-92D98D70DB01}|human-resource-management.csproj|d:\\fptu\\su25\\prn232\\finalproject\\hrm-be-2\\hrm-be\\dto\\projectemployeedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4FF7973A-34D9-4BD8-A3A3-92D98D70DB01}|human-resource-management.csproj|solutionrelative:dto\\projectemployeedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4FF7973A-34D9-4BD8-A3A3-92D98D70DB01}|human-resource-management.csproj|d:\\fptu\\su25\\prn232\\finalproject\\hrm-be-2\\hrm-be\\mapper\\projectemployeemapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4FF7973A-34D9-4BD8-A3A3-92D98D70DB01}|human-resource-management.csproj|solutionrelative:mapper\\projectemployeemapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4FF7973A-34D9-4BD8-A3A3-92D98D70DB01}|human-resource-management.csproj|d:\\fptu\\su25\\prn232\\finalproject\\hrm-be-2\\hrm-be\\controllers\\employeecontactcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4FF7973A-34D9-4BD8-A3A3-92D98D70DB01}|human-resource-management.csproj|solutionrelative:controllers\\employeecontactcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 242,
+          "SelectedChildIndex": 15,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:132:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:4:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:29:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ProjectEmployeeMapper.cs",
+              "DocumentMoniker": "D:\\FPTU\\SU25\\PRN232\\FinalProject\\hrm-be-2\\hrm-be\\Mapper\\ProjectEmployeeMapper.cs",
+              "RelativeDocumentMoniker": "Mapper\\ProjectEmployeeMapper.cs",
+              "ToolTip": "D:\\FPTU\\SU25\\PRN232\\FinalProject\\hrm-be-2\\hrm-be\\Mapper\\ProjectEmployeeMapper.cs",
+              "RelativeToolTip": "Mapper\\ProjectEmployeeMapper.cs",
+              "ViewState": "AgIAACwAAAAAAAAAAAAgwAsAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-20T02:08:35.566Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ProjectEmployeeDto.cs",
+              "DocumentMoniker": "D:\\FPTU\\SU25\\PRN232\\FinalProject\\hrm-be-2\\hrm-be\\Dto\\ProjectEmployeeDto.cs",
+              "RelativeDocumentMoniker": "Dto\\ProjectEmployeeDto.cs",
+              "ToolTip": "D:\\FPTU\\SU25\\PRN232\\FinalProject\\hrm-be-2\\hrm-be\\Dto\\ProjectEmployeeDto.cs",
+              "RelativeToolTip": "Dto\\ProjectEmployeeDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-20T02:07:55.295Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "EmployeeContactController.cs",
+              "DocumentMoniker": "D:\\FPTU\\SU25\\PRN232\\FinalProject\\hrm-be-2\\hrm-be\\Controllers\\EmployeeContactController.cs",
+              "RelativeDocumentMoniker": "Controllers\\EmployeeContactController.cs",
+              "ToolTip": "D:\\FPTU\\SU25\\PRN232\\FinalProject\\hrm-be-2\\hrm-be\\Controllers\\EmployeeContactController.cs",
+              "RelativeToolTip": "Controllers\\EmployeeContactController.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAABIAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-10T02:19:38.955Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "EmployeeProjectController.cs",
+              "DocumentMoniker": "D:\\FPTU\\SU25\\PRN232\\FinalProject\\hrm-be-2\\hrm-be\\Controllers\\EmployeeProjectController.cs",
+              "RelativeDocumentMoniker": "Controllers\\EmployeeProjectController.cs",
+              "ToolTip": "D:\\FPTU\\SU25\\PRN232\\FinalProject\\hrm-be-2\\hrm-be\\Controllers\\EmployeeProjectController.cs",
+              "RelativeToolTip": "Controllers\\EmployeeProjectController.cs",
+              "ViewState": "AgIAACsAAAAAAAAAAADwv0EAAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-10T02:12:00.014Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:27:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:28:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:29:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:34:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:35:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:34:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:37:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 55,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:36:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 68,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:38:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:37:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
