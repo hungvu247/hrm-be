@@ -17,7 +17,7 @@ namespace human_resource_management.Controllers
             _context = context;
         }
 
-        // ✅ API TRẢ VỀ CÂY PHÂN CẤP POSITION
+
         [HttpGet]
         [Produces("application/json")]
         public IActionResult GetPositionTree(string search = "",
@@ -35,7 +35,7 @@ namespace human_resource_management.Controllers
                     .ToList();
             }
             var totalCount = positions.Count;
-            // Sắp xếp (mặc định theo PositionName)
+
             positions = orderBy switch
             {
                 "PositionName" => positions.OrderBy(p => p.PositionName).ToList(),
@@ -92,13 +92,12 @@ namespace human_resource_management.Controllers
                 return BadRequest(new { message = "Thông tin vị trí không hợp lệ" });
             }
 
-            // ✅ Kiểm tra trùng tên (không phân biệt hoa thường)
             bool isDuplicate = await _context.Positions
                 .AnyAsync(p => p.PositionName.ToLower() == position.PositionName.ToLower());
 
             if (isDuplicate)
             {
-                return Conflict(new { message = "Tên vị trí đã tồn tại" }); // HTTP 409
+                return Conflict(new { message = "Tên vị trí đã tồn tại" });
             }
 
             _context.Positions.Add(position);
@@ -126,7 +125,7 @@ namespace human_resource_management.Controllers
 
             if (isDuplicate)
             {
-                return Conflict(new { message = "Tên vị trí đã tồn tại" }); // HTTP 409
+                return Conflict(new { message = "Tên vị trí đã tồn tại" }); 
             }
             _context.Entry(position).State = EntityState.Modified;
             await _context.SaveChangesAsync();
@@ -153,7 +152,7 @@ namespace human_resource_management.Controllers
                 var positions = await _context.Positions
                     .Select(p => PositionMapper.ToDto(p))
                     .ToListAsync();
-                return Ok(positions); // đảm bảo trả về JSON
+                return Ok(positions); 
             }
             catch (Exception ex)
             {

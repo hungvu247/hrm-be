@@ -8,8 +8,8 @@ namespace human_resource_management.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Produces("application/json")]
-    //[Authorize]
-    // Bảo vệ API bằng xác thực
+    [Authorize]
+  //  Bảo vệ API bằng xác thực
     public class DepartmentController : ControllerBase
     {
         private readonly Service.DepartmentService _departmentService;
@@ -30,7 +30,7 @@ namespace human_resource_management.Controllers
                 DepartmentName = d.DepartmentName,
                 Description = d.Description
             });
-            return Ok(result); // đảm bảo trả về JSON
+            return Ok(result); 
         }
 
         [HttpGet]
@@ -45,11 +45,8 @@ namespace human_resource_management.Controllers
             var result = await _departmentService.SearchPagedDepartmentsAsync(search, skip, top, orderBy);
             return Ok(result);
         }
-
-
-
         [HttpGet("{id}")]
-        [Produces("application/json")] // Bắt buộc trả JSON
+        [Produces("application/json")] 
         public async Task<IActionResult> GetDepartmentById(int id)
         {
             var dept = await _departmentService.GetDepartmentByIdAsync(id);
@@ -96,14 +93,14 @@ namespace human_resource_management.Controllers
 
             string status = statusElement.GetString() ?? "Inactive";
 
-            // ✅ Lấy thực thể gốc từ DB, không phải DTO
+   
             var department = await _departmentService.GetDepartmentByIdAsync(id);
             if (department == null)
             {
                 return NotFound();
             }
 
-            // ✅ Gán trực tiếp field
+       
             department.Status = status;
 
             await _departmentService.DeleteDepartmentAsync(id);

@@ -129,7 +129,7 @@ namespace human_resource_management.Service
                 {
                     ValidateIssuer = true,
                     ValidateAudience = true,
-                    ValidateLifetime = false, // Không validate thời gian để lấy info từ expired token
+                    ValidateLifetime = false, 
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = _configuration["JwtConfig:Issuer"],
                     ValidAudience = _configuration["JwtConfig:Audience"],
