@@ -47,6 +47,14 @@ public partial class Employee
 
     public virtual ICollection<PromotionHistory> PromotionHistories { get; set; } = new List<PromotionHistory>();
 
+    public virtual ICollection<PromotionRequest> PromotionRequestApprovedByNavigations { get; set; } = new List<PromotionRequest>();
+
+    public virtual ICollection<PromotionRequest> PromotionRequestAssignedToNavigations { get; set; } = new List<PromotionRequest>();
+
+    public virtual ICollection<PromotionRequest> PromotionRequestEmployees { get; set; } = new List<PromotionRequest>();
+
+    public virtual ICollection<PromotionRequest> PromotionRequestRequestedByNavigations { get; set; } = new List<PromotionRequest>();
+
     public virtual ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
 
     public virtual Role? Role { get; set; }

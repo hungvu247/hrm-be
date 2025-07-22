@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace human_resource_management.Models;
+namespace human_resource_management.Model;
 
 public partial class EligibleForPromotion
 {

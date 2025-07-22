@@ -19,6 +19,8 @@ public partial class HumanResourceManagementContext : DbContext
 
     public virtual DbSet<DepartmentBudget> DepartmentBudgets { get; set; }
 
+    public virtual DbSet<EligibleForPromotion> EligibleForPromotions { get; set; }
+
     public virtual DbSet<Employee> Employees { get; set; }
 
     public virtual DbSet<EmployeeContact> EmployeeContacts { get; set; }
@@ -36,6 +38,8 @@ public partial class HumanResourceManagementContext : DbContext
     public virtual DbSet<ProjectDocument> ProjectDocuments { get; set; }
 
     public virtual DbSet<PromotionHistory> PromotionHistories { get; set; }
+
+    public virtual DbSet<PromotionRequest> PromotionRequests { get; set; }
 
     public virtual DbSet<RefreshToken> RefreshTokens { get; set; }
 
@@ -85,6 +89,24 @@ public partial class HumanResourceManagementContext : DbContext
                 .HasForeignKey(d => d.DepartmentId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__departmen__depar__5CD6CB2B");
+        });
+
+        modelBuilder.Entity<EligibleForPromotion>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("eligible_for_promotion");
+
+            entity.Property(e => e.AvgKpi).HasColumnName("avg_kpi");
+            entity.Property(e => e.EmployeeId).HasColumnName("employee_id");
+            entity.Property(e => e.FirstReview).HasColumnName("first_review");
+            entity.Property(e => e.FullName)
+                .HasMaxLength(511)
+                .IsUnicode(false)
+                .HasColumnName("full_name");
+            entity.Property(e => e.LatestReview).HasColumnName("latest_review");
+            entity.Property(e => e.PositionId).HasColumnName("position_id");
+            entity.Property(e => e.ReviewCount).HasColumnName("review_count");
         });
 
         modelBuilder.Entity<Employee>(entity =>
@@ -299,20 +321,75 @@ public partial class HumanResourceManagementContext : DbContext
 
             entity.Property(e => e.PromotionId).HasColumnName("promotion_id");
             entity.Property(e => e.EmployeeId).HasColumnName("employee_id");
-            entity.Property(e => e.NewPosition)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasColumnName("new_position");
-            entity.Property(e => e.OldPosition)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasColumnName("old_position");
+            entity.Property(e => e.NewPosition).HasColumnName("new_position");
+            entity.Property(e => e.OldPosition).HasColumnName("old_position");
             entity.Property(e => e.PromotionDate).HasColumnName("promotion_date");
 
             entity.HasOne(d => d.Employee).WithMany(p => p.PromotionHistories)
                 .HasForeignKey(d => d.EmployeeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__promotion__emplo__5FB337D6");
+
+            entity.HasOne(d => d.NewPositionNavigation).WithMany(p => p.PromotionHistoryNewPositionNavigations)
+                .HasForeignKey(d => d.NewPosition)
+                .HasConstraintName("fk_new_position");
+
+            entity.HasOne(d => d.OldPositionNavigation).WithMany(p => p.PromotionHistoryOldPositionNavigations)
+                .HasForeignKey(d => d.OldPosition)
+                .HasConstraintName("fk_old_position");
+        });
+
+        modelBuilder.Entity<PromotionRequest>(entity =>
+        {
+            entity.HasKey(e => e.RequestId).HasName("PK__promotio__18D3B90F828F4C91");
+
+            entity.ToTable("promotion_request", tb => tb.HasTrigger("trg_AutoInsertPromotion"));
+
+            entity.Property(e => e.RequestId).HasColumnName("request_id");
+            entity.Property(e => e.ApproveDate).HasColumnName("approve_date");
+            entity.Property(e => e.ApprovedBy).HasColumnName("approved_by");
+            entity.Property(e => e.AssignedTo).HasColumnName("assigned_to");
+            entity.Property(e => e.CurrentPositionId).HasColumnName("current_position_id");
+            entity.Property(e => e.EmployeeId).HasColumnName("employee_id");
+            entity.Property(e => e.Reason).HasColumnName("reason");
+            entity.Property(e => e.RequestDate)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnName("request_date");
+            entity.Property(e => e.RequestedBy).HasColumnName("requested_by");
+            entity.Property(e => e.Status)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasDefaultValue("Pending")
+                .HasColumnName("status");
+            entity.Property(e => e.SuggestedPositionId).HasColumnName("suggested_position_id");
+
+            entity.HasOne(d => d.ApprovedByNavigation).WithMany(p => p.PromotionRequestApprovedByNavigations)
+                .HasForeignKey(d => d.ApprovedBy)
+                .HasConstraintName("FK__promotion__appro__1F98B2C1");
+
+            entity.HasOne(d => d.AssignedToNavigation).WithMany(p => p.PromotionRequestAssignedToNavigations)
+                .HasForeignKey(d => d.AssignedTo)
+                .HasConstraintName("FK_promotion_request_assigned_to");
+
+            entity.HasOne(d => d.CurrentPosition).WithMany(p => p.PromotionRequestCurrentPositions)
+                .HasForeignKey(d => d.CurrentPositionId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__promotion__curre__1CBC4616");
+
+            entity.HasOne(d => d.Employee).WithMany(p => p.PromotionRequestEmployees)
+                .HasForeignKey(d => d.EmployeeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__promotion__emplo__1BC821DD");
+
+            entity.HasOne(d => d.RequestedByNavigation).WithMany(p => p.PromotionRequestRequestedByNavigations)
+                .HasForeignKey(d => d.RequestedBy)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__promotion__reque__1EA48E88");
+
+            entity.HasOne(d => d.SuggestedPosition).WithMany(p => p.PromotionRequestSuggestedPositions)
+                .HasForeignKey(d => d.SuggestedPositionId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__promotion__sugge__1DB06A4F");
         });
 
         modelBuilder.Entity<RefreshToken>(entity =>
