@@ -1,6 +1,9 @@
-﻿using human_resource_management.Model;
+﻿using human_resource_management.Dto;
+using human_resource_management.IService;
+using human_resource_management.Model;
 using human_resource_management.Repository;
 using human_resource_management.Service;
+using human_resource_management.Util;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -105,6 +108,16 @@ builder.Services.AddScoped<JwtService>();
 builder.Services.AddScoped<DepartmentRepository>();
 builder.Services.AddScoped<DepartmentService>();
 
+builder.Services.Configure<PasswordSettings>(
+    builder.Configuration.GetSection("PasswordSettings")
+);
+builder.Services.Configure<EmailSettings>(
+    builder.Configuration.GetSection("EmailSettings")
+);
+
+// Đăng ký service
+builder.Services.AddSingleton<PasswordGenerator>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 // ───────────────────────────────────────
 // BUILD APP

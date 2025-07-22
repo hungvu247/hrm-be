@@ -1,4 +1,5 @@
 ﻿using human_resource_management.Dto;
+using human_resource_management.IService;
 using human_resource_management.Mapper;
 using human_resource_management.Model;
 using human_resource_management.Service;
@@ -14,10 +15,15 @@ namespace human_resource_management.Controllers
     public class EmployeeController : ControllerBase
     {
         private readonly HumanResourceManagementContext _context;
-
-        public EmployeeController(HumanResourceManagementContext context)
+        private readonly IEmailService _emailService;
+        private readonly PasswordGenerator _passwordGenerator;
+        public EmployeeController(HumanResourceManagementContext context,
+             IEmailService emailService,
+             PasswordGenerator passwordGenerator)
         {
             _context = context;
+            _emailService = emailService;
+            _passwordGenerator = passwordGenerator;
         }
 
         [Produces("application/json")]
@@ -114,17 +120,24 @@ namespace human_resource_management.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var newEmployee = EmployeeMapper.ToEntity(dto);
+            // Sinh mật khẩu ngẫu nhiên và hash
+            var generatedPassword = _passwordGenerator.GenerateRandomPassword();
+            var hashedPassword = PasswordHasher.HashPassword(generatedPassword);
 
-            if (!string.IsNullOrWhiteSpace(newEmployee.Password))
-            {
-                newEmployee.Password = PasswordHasher.HashPassword(newEmployee.Password);
-            }
+            // Ánh xạ từ DTO sang entity
+            var newEmployee = EmployeeMapper.ToEntity(dto);
+            newEmployee.Password = hashedPassword;
+
+            // Thêm vào database
             _context.Employees.Add(newEmployee);
             await _context.SaveChangesAsync();
 
+            // Gửi email cho nhân viên
+            await _emailService.SendEmailAsync(dto.Email, generatedPassword);
+
             return CreatedAtAction(nameof(GetEmployeeById), new { id = newEmployee.EmployeeId }, null);
         }
+
 
         [HttpPut("update-employee/{id}")]
         [Produces("application/json")]
@@ -151,10 +164,10 @@ namespace human_resource_management.Controllers
             if (dto.RoleId.HasValue) employee.RoleId = dto.RoleId;
 
             // Mã hóa mật khẩu nếu có cập nhật
-            if (!string.IsNullOrWhiteSpace(dto.Password))
-            {
-                employee.Password = PasswordHasher.HashPassword(dto.Password);
-            }
+            //if (!string.IsNullOrWhiteSpace(dto.Password))
+            //{
+            //    employee.Password = PasswordHasher.HashPassword(dto.Password);
+            //}
 
             await _context.SaveChangesAsync();
 
