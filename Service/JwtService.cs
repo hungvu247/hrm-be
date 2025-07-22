@@ -90,6 +90,8 @@ namespace human_resource_management.Service
             return new LoginResponseModel
             {
                 EmployeeId = user.EmployeeId,
+                PositionId=user.PositionId,
+                RoleId = user.RoleId,
                 AccessToken = accessToken,
                 RefreshToken = refreshToken.Token,
                 ExpiresIn = (int)(accessTokenExpiry - DateTime.UtcNow).TotalSeconds,
