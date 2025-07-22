@@ -100,7 +100,8 @@ builder.Services.AddSwaggerGen(options =>
 // ───────────────────────────────────────
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
-
+builder.Services.AddScoped<IProjectDocumentRepository, ProjectDocumentRepository>();
+builder.Services.AddScoped<IPerformanceReviewRepository, PerformanceReviewRepository>();
 
 // ───────────────────────────────────────
 // DEPENDENCY INJECTION
@@ -144,3 +145,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage(); // giúp hiển thị lỗi cụ thể ở Swagger
+}
