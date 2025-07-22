@@ -3,6 +3,7 @@ using human_resource_management.Dto;
 using human_resource_management.Mapper;
 using human_resource_management.Model;
 using human_resource_management.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,6 +26,7 @@ namespace human_resource_management.Controllers
 
         [HttpGet("document/{projectId}")]
         [Produces("application/json")]
+        [Authorize(Roles = "manager,Lead,employee")]//can xu ly check thong tin lead hoac employee 
         public async Task<ActionResult<IEnumerable<ProjectDocumentReadDto>>> GetByProjectId(int projectId)
         {
             var documents = await _repo.GetByProjectIdAsync(projectId);
@@ -36,7 +38,7 @@ namespace human_resource_management.Controllers
         }
         [HttpGet]
         [Produces("application/json")]
-
+        [Authorize(Roles = "manager")] 
         public async Task<ActionResult<IEnumerable<ProjectDocumentReadDto>>> GetAll()
         {
             var documents = await _repo.GetAllAsync();
@@ -46,7 +48,7 @@ namespace human_resource_management.Controllers
 
         [HttpGet("{id}")]
         [Produces("application/json")]
-
+        [Authorize(Roles = "manager,Lead,employee")] //can xu ly check thong tin lead hoac employee 
         public async Task<ActionResult<ProjectDocumentReadDto>> GetById(int id)
         {
             var document = await _repo.GetByIdAsync(id);
@@ -56,7 +58,7 @@ namespace human_resource_management.Controllers
 
         [HttpPost]
         [Produces("application/json")]
-
+        [Authorize(Roles = "Lead")]
         public async Task<ActionResult<ProjectDocumentReadDto>> Create([FromBody] ProjectDocumentCreateDto dto)
         {
             var projectExists = await _repoPro.GetByIdAsync(dto.ProjectId);
@@ -73,7 +75,7 @@ namespace human_resource_management.Controllers
 
         [HttpPut("{id}")]
         [Produces("application/json")]
-
+        [Authorize(Roles = "Lead")]
         public async Task<IActionResult> Update(int id, [FromBody] ProjectDocumentUpdateDto dto)
         {
             var existing = await _repo.GetByIdAsync(id);
@@ -85,6 +87,7 @@ namespace human_resource_management.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Lead")]//can check lead co trong project ko 
         public async Task<IActionResult> Delete(int id)
         {
             var document = await _repo.GetByIdAsync(id);

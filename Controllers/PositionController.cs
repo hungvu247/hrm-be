@@ -1,6 +1,7 @@
 ﻿using human_resource_management.Dto;
 using human_resource_management.Mapper;
 using human_resource_management.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,6 +21,7 @@ namespace human_resource_management.Controllers
 
         [HttpGet]
         [Produces("application/json")]
+        [Authorize(Roles = "HR")]
         public IActionResult GetPositionTree(string search = "",
                                              int skip = 0,
                                              int top = 10,
@@ -62,6 +64,7 @@ namespace human_resource_management.Controllers
         }
         [HttpGet("{id}")]
         [Produces("application/json")]
+        [Authorize(Roles = "HR")]
         public async Task<IActionResult> GetPositionById1(int id)
         {
             var position = await _context.Positions
@@ -85,6 +88,7 @@ namespace human_resource_management.Controllers
         }
         [HttpPost]
         [Produces("application/json")]
+        [Authorize(Roles = "HR")]
         public async Task<IActionResult> AddPosition([FromBody] Position position)
         {
             if (position == null || string.IsNullOrWhiteSpace(position.PositionName))
@@ -107,6 +111,7 @@ namespace human_resource_management.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "HR")]
         public async Task<IActionResult> UpdatePosition(int id, [FromBody] Position position)
         {
             if (id != position.PositionId || position == null)
@@ -132,6 +137,7 @@ namespace human_resource_management.Controllers
             return NoContent();
         }
         [HttpDelete("{id}")]
+        [Authorize(Roles = "HR")]
         public async Task<IActionResult> DeletePosition(int id)
         {
             var position = await _context.Positions.FindAsync(id);

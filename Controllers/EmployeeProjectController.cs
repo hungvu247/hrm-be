@@ -1,6 +1,7 @@
 ﻿using human_resource_management.Dto;
 using human_resource_management.Mapper;
 using human_resource_management.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -86,6 +87,7 @@ namespace human_resource_management.Controllers
 
         [HttpPost("add")]
         [Produces("application/json")]
+        [Authorize(Roles = "Lead")]
         public async Task<IActionResult> Add([FromBody] AddProjectEmployeeDto dto)
 
         {
@@ -110,6 +112,7 @@ namespace human_resource_management.Controllers
 
         [HttpPut("update")]
         [Produces("application/json")]
+        [Authorize(Roles = "Lead")]
         public async Task<IActionResult> Update([FromBody] AddProjectEmployeeDto dto)
         {
             var entity = await _context.EmployeeProjects
@@ -129,7 +132,7 @@ namespace human_resource_management.Controllers
 
         [HttpDelete("delete")]
         [Produces("application/json")]
-
+        [Authorize(Roles = "Lead")]
         public async Task<IActionResult> Delete([FromBody] AddProjectEmployeeDto dto)
         {
             var entity = await _context.EmployeeProjects
@@ -198,6 +201,7 @@ namespace human_resource_management.Controllers
 
         [HttpDelete("delete/{employeeId}/{projectId}")]
         [Produces("application/json")]
+        [Authorize(Roles = "Lead")]
         public async Task<IActionResult> Delete(int employeeId, int projectId)
         {
             var e = _context.EmployeeProjects
@@ -217,6 +221,7 @@ namespace human_resource_management.Controllers
 
         [HttpGet("get-to-edit/{employeeId}/{projectId}")]
         [Produces("application/json")]
+        [Authorize(Roles = "Lead")]
         public async Task<IActionResult> GetByProjectIdAndEmployeeId(int employeeId, int projectId)
         {
             var e = _context.EmployeeProjects

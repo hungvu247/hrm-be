@@ -4,6 +4,7 @@ using human_resource_management.Mapper;
 using human_resource_management.Model;
 using human_resource_management.Service;
 using human_resource_management.Util;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -28,6 +29,7 @@ namespace human_resource_management.Controllers
 
         [Produces("application/json")]
         [HttpGet("get-employee-by-id/{id}")]
+
         public async Task<IActionResult> GetEmployeeById(int id)
         {
             var employee = await _context.Employees
@@ -115,6 +117,7 @@ namespace human_resource_management.Controllers
 
         [HttpPost("add-employee")]
         [Produces("application/json")]
+        [Authorize(Roles = "HR")]
         public async Task<IActionResult> AddEmployee([FromBody] CreateEmployeeDto dto)
         {
             if (!ModelState.IsValid)
@@ -141,6 +144,8 @@ namespace human_resource_management.Controllers
 
         [HttpPut("update-employee/{id}")]
         [Produces("application/json")]
+        [Authorize(Roles = "HR,employee")]
+
         public async Task<IActionResult> UpdateEmployee(int id, [FromBody] UpdateEmployeeDto dto)
         {
             var employee = await _context.Employees.FindAsync(id);

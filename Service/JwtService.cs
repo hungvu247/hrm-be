@@ -23,12 +23,15 @@ namespace human_resource_management.Service
             await CleanUpExpiredRefreshTokens();
             if (string.IsNullOrWhiteSpace(requestModel.Username) || string.IsNullOrWhiteSpace(requestModel.Password))
                 return null;
-
             var user = await _humanResourceManagementContext.Employees
                 .FirstOrDefaultAsync(u => u.Username == requestModel.Username);
 
             if (user is null || !PasswordHashHandler.VerifyPassword(requestModel.Password, user.Password))
                 return null;
+            var roleName = await _humanResourceManagementContext.Roles
+       .Where(r => r.RoleId == user.RoleId)
+       .Select(r => r.RoleName)
+       .FirstOrDefaultAsync();
 
             var issuer = _configuration["JwtConfig:Issuer"];
             var audience = _configuration["JwtConfig:Audience"];
@@ -56,6 +59,7 @@ namespace human_resource_management.Service
                 {
             new Claim(JwtRegisteredClaimNames.UniqueName, user.Username),
             new Claim(ClaimTypes.Name, user.Username),
+            new Claim(ClaimTypes.Role, roleName),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         }),
                 Expires = accessTokenExpiry,
@@ -90,7 +94,7 @@ namespace human_resource_management.Service
             return new LoginResponseModel
             {
                 EmployeeId = user.EmployeeId,
-                PositionId=user.PositionId,
+                PositionId = user.PositionId,
                 RoleId = user.RoleId,
                 AccessToken = accessToken,
                 RefreshToken = refreshToken.Token,
@@ -131,7 +135,7 @@ namespace human_resource_management.Service
                 {
                     ValidateIssuer = true,
                     ValidateAudience = true,
-                    ValidateLifetime = false, 
+                    ValidateLifetime = false,
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = _configuration["JwtConfig:Issuer"],
                     ValidAudience = _configuration["JwtConfig:Audience"],
@@ -198,6 +202,30 @@ namespace human_resource_management.Service
             {
                 _humanResourceManagementContext.RefreshTokens.RemoveRange(expiredTokens);
                 await _humanResourceManagementContext.SaveChangesAsync();
+            }
+        }
+        public string? GetUsernameFromToken(string accessToken)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            try
+            {
+                var principal = tokenHandler.ValidateToken(accessToken, new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = false, // Không check hết hạn, chỉ parse ra
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = _configuration["JwtConfig:Issuer"],
+                    ValidAudience = _configuration["JwtConfig:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtConfig:Key"]))
+                }, out SecurityToken validatedToken);
+
+                return principal.Identity?.Name;
+            }
+            catch
+            {
+                return null;
             }
         }
 

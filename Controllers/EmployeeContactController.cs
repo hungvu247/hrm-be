@@ -2,6 +2,7 @@
 using human_resource_management.Mapper;
 using human_resource_management.Model;
 using human_resource_management.Util;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ namespace human_resource_management.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "HR")]
     public class EmployeeContactController : ControllerBase
     {
         private readonly HumanResourceManagementContext _context;
@@ -21,6 +23,7 @@ namespace human_resource_management.Controllers
 
         [HttpPost("get-all-employee-contact")]
         [Produces("application/json")]
+       
         public async Task<IActionResult> GetAllEmployeeContacts([FromBody] ContactFilterDto filter)
         {
             var query = _context.EmployeeContacts

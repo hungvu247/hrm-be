@@ -2,6 +2,7 @@
 using human_resource_management.Dto;
 using human_resource_management.Mapper;
 using human_resource_management.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -32,7 +33,6 @@ namespace human_resource_management.Controllers
 
         [HttpGet]
         [Produces("application/json")]
-
         public async Task<ActionResult<PerformanceReviewReadDto>> GetAll()
         {
             var reviews = await _repo.GetAllAsync();
@@ -62,7 +62,7 @@ namespace human_resource_management.Controllers
 
         [HttpPost]
         [Produces("application/json")]
-
+        [Authorize(Roles = "Lead")]
         public async Task<ActionResult<PerformanceReviewReadDto>> Create(PerformanceReviewCreateDto dto)
         {
             var employeeExists = await _context.Employees.AnyAsync(e => e.EmployeeId == dto.EmployeeId);
@@ -82,7 +82,7 @@ namespace human_resource_management.Controllers
 
         [HttpPut("{id}")]
         [Produces("application/json")]
-
+        [Authorize(Roles = "Lead")]
         public async Task<IActionResult> Update(int id, PerformanceReviewUpdateDto dto)
         {
             var review = await _repo.GetByIdAsync(id);
@@ -96,7 +96,7 @@ namespace human_resource_management.Controllers
 
         [HttpDelete("{id}")]
         [Produces("application/json")]
-
+        [Authorize(Roles = "Lead")]
         public async Task<IActionResult> Delete(int id)
         {
             var review = await _repo.GetByIdAsync(id);

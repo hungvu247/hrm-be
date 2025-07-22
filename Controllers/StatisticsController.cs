@@ -1,5 +1,6 @@
 ﻿using human_resource_management.Dto;
 using human_resource_management.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,7 @@ namespace human_resource_management.Controllers
 
         [HttpGet("employee-by-department")]
         [Produces("application/json")]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult<IEnumerable<DepartmentEmployeeStats>>> GetEmployeeStatsByDepartment()
         {
             var stats = await _context.Employees

@@ -1,5 +1,6 @@
 ﻿using human_resource_management.Dto;
 using human_resource_management.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,6 +19,7 @@ namespace human_resource_management.Controllers
         }
 
         [HttpPost("request")]
+        [Authorize(Roles = "HR")]
         public async Task<IActionResult> CreateRequest([FromBody] PromotionRequestDto dto)
         {
             var result = await _promotionService.CreatePromotionRequest(dto);
@@ -25,6 +27,7 @@ namespace human_resource_management.Controllers
         }
 
         [HttpPut("approve/{id}")]
+        [Authorize(Roles = "HR")]
         public async Task<IActionResult> Approve(int id, [FromQuery] int approvedBy)
         {
             var result = await _promotionService.ApproveRequest(id, approvedBy);
@@ -32,6 +35,7 @@ namespace human_resource_management.Controllers
         }
 
         [HttpGet("eligible")]
+        [Authorize(Roles = "HR")]
         public async Task<IActionResult> GetEligibleCandidates()
         {
             var result = await _promotionService.GetEligibleCandidates();

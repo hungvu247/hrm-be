@@ -4,6 +4,7 @@ using human_resource_management.Mapper;
 using human_resource_management.Model;
 using human_resource_management.Repository;
 using human_resource_management.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +26,7 @@ namespace human_resource_management.Controllers
         }
         [HttpGet]
         [Produces("application/json")]
+        [Authorize(Roles = "HR,Lead,manager")]
         public async Task<ActionResult<IEnumerable<ProjectReadDto>>> GetProjects(int page = 1, int pageSize = 10, string? search = null)
         {
             var projects = await _repo.GetPagedProjectsAsync(page, pageSize, search);
@@ -53,7 +55,7 @@ namespace human_resource_management.Controllers
 
         [HttpPost]
         [Produces("application/json")]
-
+        [Authorize(Roles = "manager")]
         public async Task<ActionResult<ProjectReadDto>> Create([FromBody] ProjectCreateDto dto)
         {
             if (!ModelState.IsValid)
@@ -90,7 +92,7 @@ namespace human_resource_management.Controllers
 
         [HttpPut("{id}")]
         [Produces("application/json")]
-
+        [Authorize(Roles = "manager")]
         public async Task<IActionResult> Update(int id, ProjectUpdateDto dto)
         {
             var project = await _repo.GetByIdAsync(id);
@@ -103,7 +105,7 @@ namespace human_resource_management.Controllers
 
         [HttpDelete("{id}")]
         [Produces("application/json")]
-
+        [Authorize(Roles = "manager")]
         public async Task<IActionResult> Delete(int id)
         {
             var project = await _repo.GetByIdAsync(id);

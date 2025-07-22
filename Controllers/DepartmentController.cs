@@ -8,8 +8,8 @@ namespace human_resource_management.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Produces("application/json")]
-    [Authorize]
-  //  Bảo vệ API bằng xác thực
+
+    //  Bảo vệ API bằng xác thực
     public class DepartmentController : ControllerBase
     {
         private readonly Service.DepartmentService _departmentService;
@@ -21,6 +21,7 @@ namespace human_resource_management.Controllers
 
         [HttpGet("get-all-department")]
         [Produces("application/json")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> GetDepartments2()
         {
             var departments = await _departmentService.GetAllDepartmentsAsync();
@@ -30,11 +31,12 @@ namespace human_resource_management.Controllers
                 DepartmentName = d.DepartmentName,
                 Description = d.Description
             });
-            return Ok(result); 
+            return Ok(result);
         }
 
         [HttpGet]
         [Produces("application/json")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> GetDepartments(
      string search = "",
      int skip = 0,
@@ -46,7 +48,8 @@ namespace human_resource_management.Controllers
             return Ok(result);
         }
         [HttpGet("{id}")]
-        [Produces("application/json")] 
+        [Produces("application/json")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> GetDepartmentById(int id)
         {
             var dept = await _departmentService.GetDepartmentByIdAsync(id);
@@ -57,6 +60,7 @@ namespace human_resource_management.Controllers
 
         [HttpPost]
         [Produces("application/json")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> AddDepartment([FromBody] Model.Department department)
         {
             if (department == null)
@@ -68,6 +72,7 @@ namespace human_resource_management.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> UpdateDepartment(int id, [FromBody] Model.Department department)
         {
             if (id != department.DepartmentId || department == null)
@@ -78,12 +83,14 @@ namespace human_resource_management.Controllers
             return NoContent();
         }
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteDepartment(int id)
         {
             await _departmentService.DeleteDepartmentAsync(id);
             return NoContent();
         }
         [HttpPatch("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> UpdateDepartmentStatus(int id, [FromBody] JsonElement body)
         {
             if (!body.TryGetProperty("status", out var statusElement))
@@ -93,14 +100,14 @@ namespace human_resource_management.Controllers
 
             string status = statusElement.GetString() ?? "Inactive";
 
-   
+
             var department = await _departmentService.GetDepartmentByIdAsync(id);
             if (department == null)
             {
                 return NotFound();
             }
 
-       
+
             department.Status = status;
 
             await _departmentService.DeleteDepartmentAsync(id);
