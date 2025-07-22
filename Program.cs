@@ -1,5 +1,6 @@
 ﻿using human_resource_management.Dto;
 using human_resource_management.IService;
+using human_resource_management.Mapper;
 using human_resource_management.Model;
 using human_resource_management.Repository;
 using human_resource_management.Service;
@@ -98,8 +99,10 @@ builder.Services.AddSwaggerGen(options =>
         { jwtSecurityScheme, Array.Empty<string>() }
     });
 });
-
-
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+builder.Services.AddScoped<IProjectDocumentRepository, ProjectDocumentRepository>();
+builder.Services.AddScoped<IPerformanceReviewRepository, PerformanceReviewRepository>();
 // ───────────────────────────────────────
 // DEPENDENCY INJECTION
 // ───────────────────────────────────────
