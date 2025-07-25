@@ -29,31 +29,28 @@ namespace human_resource_management.Controllers
             var query = _context.EmployeeContacts
                 .Include(c => c.Employee)
                 .AsQueryable();
-
-            // Lọc theo từ khóa
-            if (!string.IsNullOrWhiteSpace(filter.Keyword))
+     if (!string.IsNullOrWhiteSpace(filter.Keyword))
             {
                 query = query.Where(c =>
                     c.ContactType.Contains(filter.Keyword) ||
                     c.ContactValue.Contains(filter.Keyword));
             }
 
-            // Lọc theo employeeId
+ 
             if (filter.EmployeeId.HasValue)
             {
                 query = query.Where(c => c.EmployeeId == filter.EmployeeId.Value);
             }
 
-            // Lọc theo ContactType
             if (!string.IsNullOrWhiteSpace(filter.Type))
             {
                 query = query.Where(c => c.ContactType == filter.Type);
             }
 
-            // Tính tổng số bản ghi
+      
             var totalRecords = await query.CountAsync();
 
-            // Lấy dữ liệu phân trang
+       
             var contacts = await query
                 .Skip((filter.Page - 1) * filter.PageSize)
                 .Take(filter.PageSize)
@@ -161,7 +158,7 @@ namespace human_resource_management.Controllers
             if (contact == null)
                 return NotFound($"Không tìm thấy liên hệ với ContactId = {contactId}");
 
-            // Nếu cập nhật IsPrimary = true, thì cần reset IsPrimary các liên hệ khác của nhân viên này
+        
             if (dto.IsPrimary == true)
             {
                 var oldPrimary = await _context.EmployeeContacts

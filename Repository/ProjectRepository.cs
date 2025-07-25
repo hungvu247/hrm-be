@@ -12,15 +12,39 @@ namespace human_resource_management.Repository
             _context = context;
         }
 
-        public async Task<IEnumerable<Project>> GetPagedProjectsAsync(int page, int pageSize, string? search)
+        public async Task<IEnumerable<Project>> GetPagedProjectsAsync(int? employeeId, int page, int pageSize, string? search)
         {
-            var query = _context.Projects.AsQueryable();
+            if (employeeId == null)
+                return new List<Project>();
 
+            // Lấy employee hiện tại
+            var employee = await _context.Employees
+                .FirstOrDefaultAsync(e => e.EmployeeId == employeeId);
+
+            if (employee == null)
+                return new List<Project>();
+
+            IQueryable<Project> query;
+
+            if (employee.RoleId == 6 || employee.RoleId == 2)
+            {
+                query = _context.Projects.AsQueryable();
+            }
+            else
+            {
+                // Chỉ xem được các project mà họ được phân công
+                query = _context.Projects
+                    .Where(p => p.EmployeeProjects.Any(ep => ep.EmployeeId == employeeId))
+                    .AsQueryable();
+            }
+
+            // Áp dụng điều kiện tìm kiếm nếu có
             if (!string.IsNullOrEmpty(search))
             {
                 query = query.Where(p => p.ProjectName.Contains(search));
             }
 
+            // Phân trang
             return await query
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)

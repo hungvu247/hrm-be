@@ -13,7 +13,11 @@ public partial class Department
 
     public string? Status { get; set; }
 
+    public int? LeadEmployeeId { get; set; }
+
     public virtual ICollection<DepartmentBudget> DepartmentBudgets { get; set; } = new List<DepartmentBudget>();
 
     public virtual ICollection<Employee> Employees { get; set; } = new List<Employee>();
+
+    public virtual Employee? LeadEmployee { get; set; }
 }

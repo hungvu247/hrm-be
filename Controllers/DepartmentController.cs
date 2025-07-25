@@ -21,7 +21,6 @@ namespace human_resource_management.Controllers
 
         [HttpGet("get-all-department")]
         [Produces("application/json")]
-        [Authorize(Roles = "admin")]
         public async Task<IActionResult> GetDepartments2()
         {
             var departments = await _departmentService.GetAllDepartmentsAsync();

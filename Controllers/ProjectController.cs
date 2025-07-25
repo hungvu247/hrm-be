@@ -18,18 +18,27 @@ namespace human_resource_management.Controllers
     {
         private readonly IProjectRepository _repo;
         private readonly IMapper _mapper;
+        private readonly JwtService _jwtService;
 
-        public ProjectController(IProjectRepository repo, IMapper mapper)
+        public ProjectController(IProjectRepository repo, IMapper mapper, JwtService jwtService)
         {
             _repo = repo;
             _mapper = mapper;
+            _jwtService = jwtService;
         }
         [HttpGet]
         [Produces("application/json")]
         [Authorize(Roles = "HR,Lead,manager")]
         public async Task<ActionResult<IEnumerable<ProjectReadDto>>> GetProjects(int page = 1, int pageSize = 10, string? search = null)
         {
-            var projects = await _repo.GetPagedProjectsAsync(page, pageSize, search);
+            var accessToken = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            var employeeId = _jwtService.GetEmployeeIdFromToken(accessToken);
+
+            if (employeeId == null)
+            {
+                return Unauthorized("EmployeeId is missing or invalid in token.");
+            }
+            var projects = await _repo.GetPagedProjectsAsync(employeeId, page, pageSize, search);
             var projectDtos = _mapper.Map<IEnumerable<ProjectReadDto>>(projects);
             return Ok(projectDtos);
         }

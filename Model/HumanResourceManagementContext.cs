@@ -64,9 +64,14 @@ public partial class HumanResourceManagementContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("department_name");
             entity.Property(e => e.Description).HasColumnName("description");
+            entity.Property(e => e.LeadEmployeeId).HasColumnName("lead_employee_id");
             entity.Property(e => e.Status)
                 .HasMaxLength(50)
                 .HasColumnName("status");
+
+            entity.HasOne(d => d.LeadEmployee).WithMany(p => p.Departments)
+                .HasForeignKey(d => d.LeadEmployeeId)
+                .HasConstraintName("FK_Department_LeadEmployee");
         });
 
         modelBuilder.Entity<DepartmentBudget>(entity =>
@@ -134,6 +139,7 @@ public partial class HumanResourceManagementContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("last_name");
+            entity.Property(e => e.LeadEmployeeId).HasColumnName("lead_employee_id");
             entity.Property(e => e.Password)
                 .HasMaxLength(255)
                 .IsUnicode(false)
@@ -159,6 +165,10 @@ public partial class HumanResourceManagementContext : DbContext
             entity.HasOne(d => d.Department).WithMany(p => p.Employees)
                 .HasForeignKey(d => d.DepartmentId)
                 .HasConstraintName("FK__employees__depar__32E0915F");
+
+            entity.HasOne(d => d.LeadEmployee).WithMany(p => p.InverseLeadEmployee)
+                .HasForeignKey(d => d.LeadEmployeeId)
+                .HasConstraintName("FK_Employee_LeadEmployee");
 
             entity.HasOne(d => d.Position).WithMany(p => p.Employees)
                 .HasForeignKey(d => d.PositionId)

@@ -35,11 +35,19 @@ public partial class Employee
 
     public int? RoleId { get; set; }
 
+    public int? LeadEmployeeId { get; set; }
+
     public virtual Department? Department { get; set; }
+
+    public virtual ICollection<Department> Departments { get; set; } = new List<Department>();
 
     public virtual ICollection<EmployeeContact> EmployeeContacts { get; set; } = new List<EmployeeContact>();
 
     public virtual ICollection<EmployeeProject> EmployeeProjects { get; set; } = new List<EmployeeProject>();
+
+    public virtual ICollection<Employee> InverseLeadEmployee { get; set; } = new List<Employee>();
+
+    public virtual Employee? LeadEmployee { get; set; }
 
     public virtual ICollection<PerformanceReview> PerformanceReviews { get; set; } = new List<PerformanceReview>();
 

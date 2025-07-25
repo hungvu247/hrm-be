@@ -62,7 +62,6 @@ namespace human_resource_management.Controllers
                 .Include(e => e.Role)
                 .AsQueryable();
 
-            // ✅ Apply điều kiện lọc trước khi Count
             if (!string.IsNullOrEmpty(searchDto.Keyword))
             {
                 query = query.Where(e =>
@@ -91,11 +90,10 @@ namespace human_resource_management.Controllers
             if (searchDto.HireDateMax.HasValue)
                 query = query.Where(e => e.HireDate <= searchDto.HireDateMax);
 
-            // ✅ Tính đúng tổng bản ghi sau khi đã lọc
             var totalRecords = await query.CountAsync();
             var totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
 
-            // ✅ Phân trang
+      
             var employees = await query
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
@@ -123,19 +121,15 @@ namespace human_resource_management.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            // Sinh mật khẩu ngẫu nhiên và hash
             var generatedPassword = _passwordGenerator.GenerateRandomPassword();
             var hashedPassword = PasswordHasher.HashPassword(generatedPassword);
 
-            // Ánh xạ từ DTO sang entity
             var newEmployee = EmployeeMapper.ToEntity(dto);
             newEmployee.Password = hashedPassword;
 
-            // Thêm vào database
             _context.Employees.Add(newEmployee);
             await _context.SaveChangesAsync();
 
-            // Gửi email cho nhân viên
             await _emailService.SendEmailAsync(dto.Email, generatedPassword);
 
             return CreatedAtAction(nameof(GetEmployeeById), new { id = newEmployee.EmployeeId }, null);
@@ -153,7 +147,7 @@ namespace human_resource_management.Controllers
             if (employee == null)
                 return NotFound($"Không tìm thấy nhân viên với ID = {id}");
 
-            // Cập nhật từng field nếu có dữ liệu mới
+       
             if (!string.IsNullOrWhiteSpace(dto.FirstName)) employee.FirstName = dto.FirstName;
             if (!string.IsNullOrWhiteSpace(dto.LastName)) employee.LastName = dto.LastName;
             if (dto.DateOfBirth.HasValue) employee.DateOfBirth = dto.DateOfBirth.Value;
@@ -164,16 +158,10 @@ namespace human_resource_management.Controllers
             if (!string.IsNullOrWhiteSpace(dto.Status)) employee.Status = dto.Status;
             if (dto.PositionId.HasValue) employee.PositionId = dto.PositionId;
             if (dto.DepartmentId.HasValue) employee.DepartmentId = dto.DepartmentId;
-            //if (!string.IsNullOrWhiteSpace(dto.Username)) employee.Username = dto.Username;
             if (!string.IsNullOrWhiteSpace(dto.Email)) employee.Email = dto.Email;
             if (dto.RoleId.HasValue) employee.RoleId = dto.RoleId;
 
-            // Mã hóa mật khẩu nếu có cập nhật
-            //if (!string.IsNullOrWhiteSpace(dto.Password))
-            //{
-            //    employee.Password = PasswordHasher.HashPassword(dto.Password);
-            //}
-
+ 
             await _context.SaveChangesAsync();
 
             return Ok($"Cập nhật nhân viên ID {id} thành công.");

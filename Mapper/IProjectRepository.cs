@@ -3,7 +3,7 @@ namespace human_resource_management.Mapper
 {
     public interface IProjectRepository
     {
-        Task<IEnumerable<Project>> GetPagedProjectsAsync(int page, int pageSize, string? search);
+        Task<IEnumerable<Project>> GetPagedProjectsAsync(int? employeeId, int page, int pageSize, string? search);
         Task<IEnumerable<Project>> GetAllAsync();
         Task<Project?> GetByIdAsync(int id);
         Task<Project> AddAsync(Project project);

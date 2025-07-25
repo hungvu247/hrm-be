@@ -60,6 +60,7 @@ namespace human_resource_management.Service
             new Claim(JwtRegisteredClaimNames.UniqueName, user.Username),
             new Claim(ClaimTypes.Name, user.Username),
             new Claim(ClaimTypes.Role, roleName),
+            new Claim("EmployeeId", user.EmployeeId.ToString()),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         }),
                 Expires = accessTokenExpiry,
@@ -222,6 +223,36 @@ namespace human_resource_management.Service
                 }, out SecurityToken validatedToken);
 
                 return principal.Identity?.Name;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        public int? GetEmployeeIdFromToken(string accessToken)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            try
+            {
+                var principal = tokenHandler.ValidateToken(accessToken, new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = false, // Không check hết hạn khi đọc
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = _configuration["JwtConfig:Issuer"],
+                    ValidAudience = _configuration["JwtConfig:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtConfig:Key"]))
+                }, out SecurityToken validatedToken);
+
+                var employeeIdClaim = principal.FindFirst("EmployeeId");
+                if (employeeIdClaim != null && int.TryParse(employeeIdClaim.Value, out int employeeId))
+                {
+                    return employeeId;
+                }
+
+                return null;
             }
             catch
             {

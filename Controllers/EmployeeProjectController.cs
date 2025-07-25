@@ -39,14 +39,14 @@ namespace human_resource_management.Controllers
         [Produces("application/json")]
         public async Task<IActionResult> GetByProjectId([FromBody] SearchEmployeeProjectDto payload)
         {
-            // Bắt đầu với kiểu IQueryable để dễ dàng thêm điều kiện
+          
             var query = _context.EmployeeProjects
                 .Include(ep => ep.Employee)
                 .Include(ep => ep.Project)
                 .Where(ep => ep.ProjectId == payload.ProjectId)
                 .AsQueryable();
 
-            // Thêm điều kiện search theo keyword nếu có
+           
             if (!string.IsNullOrEmpty(payload.Keyword))
             {
                 var keywordLower = payload.Keyword.ToLower();
@@ -56,7 +56,7 @@ namespace human_resource_management.Controllers
                 );
             }
 
-            // Thêm điều kiện theo EmployeeId nếu có
+     
             if (payload.EmployeeId.HasValue)
             {
                 query = query.Where(ep => ep.EmployeeId == payload.EmployeeId.Value);

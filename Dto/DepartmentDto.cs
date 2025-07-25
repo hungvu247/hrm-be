@@ -14,4 +14,9 @@
         public string FullName { get; set; } = null!;
         public string? Position { get; set; }
     }
+    public class DepartmentDTOa
+    {
+        public int DepartmentId { get; set; }
+        public string DepartmentName { get; set; }
+    }
 }
