@@ -103,6 +103,8 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<IProjectDocumentRepository, ProjectDocumentRepository>();
 builder.Services.AddScoped<IPerformanceReviewRepository, PerformanceReviewRepository>();
+builder.Services.AddScoped<IRequestFormRepository, RequestRepository>();
+
 // ───────────────────────────────────────
 // DEPENDENCY INJECTION
 // ───────────────────────────────────────

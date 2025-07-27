@@ -18,14 +18,67 @@ namespace human_resource_management.Controllers
         private readonly HumanResourceManagementContext _context;
         private readonly IEmailService _emailService;
         private readonly PasswordGenerator _passwordGenerator;
+        private readonly JwtService _jwtService;
+
         public EmployeeController(HumanResourceManagementContext context,
              IEmailService emailService,
-             PasswordGenerator passwordGenerator)
+             PasswordGenerator passwordGenerator,
+             JwtService jwtService)
         {
             _context = context;
             _emailService = emailService;
             _passwordGenerator = passwordGenerator;
+            _jwtService = jwtService;
+
         }
+
+        [HttpGet("role")]
+        [Produces("application/json")]
+        [Authorize]
+        public async Task<IActionResult> GetRoleId()
+        {
+           
+                try
+                {
+                    var accessToken = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+                    var employeeId = _jwtService.GetEmployeeIdFromToken(accessToken);
+
+                    var employee = await _context.Employees
+                        .Include(e => e.Role) // Nếu có navigation property "Role"
+                        .FirstOrDefaultAsync(e => e.EmployeeId == employeeId);
+
+                    if (employee == null)
+                        return NotFound("Employee not found");
+
+                    string roleName;
+
+                    if (employee.Role != null)
+                    {
+                        roleName = employee.Role.RoleName;
+                    }
+                    else
+                    {
+                        // Nếu không có navigation property thì truy vấn trực tiếp
+                        var role = await _context.Roles
+                            .FirstOrDefaultAsync(r => r.RoleId == employee.RoleId);
+
+                        roleName = role?.RoleName ?? "Unknown";
+                    }
+
+                    return Ok(new
+                    {
+                        RoleId = employee.RoleId,
+                        RoleName = roleName
+                    });
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(new { message = ex.Message });
+                }
+            
+
+        }
+
 
         [Produces("application/json")]
         [HttpGet("get-employee-by-id/{id}")]

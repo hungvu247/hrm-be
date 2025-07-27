@@ -43,13 +43,22 @@ public partial class HumanResourceManagementContext : DbContext
 
     public virtual DbSet<RefreshToken> RefreshTokens { get; set; }
 
+    public virtual DbSet<RequestForm> RequestForms { get; set; }
+
+    public virtual DbSet<RequestType> RequestTypes { get; set; }
+
     public virtual DbSet<Role> Roles { get; set; }
 
     public virtual DbSet<SkillCertificate> SkillCertificates { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("server =(local); database =human-resource-management; uid=sa;pwd=123;Trusted_Connection=True;Encrypt=False");
+    {
+        var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+
+        if (!optionsBuilder.IsConfigured) { optionsBuilder.UseSqlServer(config.GetConnectionString("MyCnn")); }
+    }
+
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -76,7 +85,7 @@ public partial class HumanResourceManagementContext : DbContext
 
         modelBuilder.Entity<DepartmentBudget>(entity =>
         {
-            entity.HasKey(e => e.BudgetId).HasName("PK__departme__3A655C149F66E59B");
+            entity.HasKey(e => e.BudgetId).HasName("PK__departme__3A655C1493EE8890");
 
             entity.ToTable("department_budgets");
 
@@ -116,7 +125,7 @@ public partial class HumanResourceManagementContext : DbContext
 
         modelBuilder.Entity<Employee>(entity =>
         {
-            entity.HasKey(e => e.EmployeeId).HasName("PK__employee__C52E0BA8CC3D28BF");
+            entity.HasKey(e => e.EmployeeId).HasName("PK__employee__C52E0BA8A32C9F12");
 
             entity.ToTable("employees");
 
@@ -181,7 +190,7 @@ public partial class HumanResourceManagementContext : DbContext
 
         modelBuilder.Entity<EmployeeContact>(entity =>
         {
-            entity.HasKey(e => e.ContactId).HasName("PK__employee__024E7A86D3B4DD3D");
+            entity.HasKey(e => e.ContactId).HasName("PK__employee__024E7A86EB70A027");
 
             entity.ToTable("employee_contacts");
 
@@ -200,12 +209,12 @@ public partial class HumanResourceManagementContext : DbContext
             entity.HasOne(d => d.Employee).WithMany(p => p.EmployeeContacts)
                 .HasForeignKey(d => d.EmployeeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__employee___emplo__5812160E");
+                .HasConstraintName("FK__employee___emplo__6C190EBB");
         });
 
         modelBuilder.Entity<EmployeeProject>(entity =>
         {
-            entity.HasKey(e => new { e.EmployeeId, e.ProjectId }).HasName("PK__employee__2EE9924956A824A5");
+            entity.HasKey(e => new { e.EmployeeId, e.ProjectId }).HasName("PK__employee__2EE9924914E4C169");
 
             entity.ToTable("employee_projects");
 
@@ -219,17 +228,17 @@ public partial class HumanResourceManagementContext : DbContext
             entity.HasOne(d => d.Employee).WithMany(p => p.EmployeeProjects)
                 .HasForeignKey(d => d.EmployeeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__employee___emplo__45F365D3");
+                .HasConstraintName("FK__employee___emplo__6D0D32F4");
 
             entity.HasOne(d => d.Project).WithMany(p => p.EmployeeProjects)
                 .HasForeignKey(d => d.ProjectId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__employee___proje__46E78A0C");
+                .HasConstraintName("FK__employee___proje__6E01572D");
         });
 
         modelBuilder.Entity<PerformanceReview>(entity =>
         {
-            entity.HasKey(e => e.ReviewId).HasName("PK__performa__60883D9039D55479");
+            entity.HasKey(e => e.ReviewId).HasName("PK__performa__60883D90DAC09431");
 
             entity.ToTable("performance_reviews");
 
@@ -245,17 +254,17 @@ public partial class HumanResourceManagementContext : DbContext
             entity.HasOne(d => d.Employee).WithMany(p => p.PerformanceReviews)
                 .HasForeignKey(d => d.EmployeeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__performan__emplo__5165187F");
+                .HasConstraintName("FK__performan__emplo__71D1E811");
 
             entity.HasOne(d => d.Project).WithMany(p => p.PerformanceReviews)
                 .HasForeignKey(d => d.ProjectId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__performan__proje__52593CB8");
+                .HasConstraintName("FK__performan__proje__72C60C4A");
         });
 
         modelBuilder.Entity<Permission>(entity =>
         {
-            entity.HasKey(e => e.PermissionId).HasName("PK__permissi__E5331AFA1310AA4D");
+            entity.HasKey(e => e.PermissionId).HasName("PK__permissi__E5331AFA779D0CC2");
 
             entity.ToTable("permissions");
 
@@ -283,7 +292,7 @@ public partial class HumanResourceManagementContext : DbContext
 
         modelBuilder.Entity<Project>(entity =>
         {
-            entity.HasKey(e => e.ProjectId).HasName("PK__projects__BC799E1F23396542");
+            entity.HasKey(e => e.ProjectId).HasName("PK__projects__BC799E1FF9722ADC");
 
             entity.ToTable("projects");
 
@@ -301,7 +310,7 @@ public partial class HumanResourceManagementContext : DbContext
 
         modelBuilder.Entity<ProjectDocument>(entity =>
         {
-            entity.HasKey(e => e.DocumentId).HasName("PK__project___9666E8AC04E0C5BD");
+            entity.HasKey(e => e.DocumentId).HasName("PK__project___9666E8ACE20BFF3E");
 
             entity.ToTable("project_documents");
 
@@ -320,12 +329,12 @@ public partial class HumanResourceManagementContext : DbContext
             entity.HasOne(d => d.Project).WithMany(p => p.ProjectDocuments)
                 .HasForeignKey(d => d.ProjectId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__project_d__proje__5535A963");
+                .HasConstraintName("FK__project_d__proje__73BA3083");
         });
 
         modelBuilder.Entity<PromotionHistory>(entity =>
         {
-            entity.HasKey(e => e.PromotionId).HasName("PK__promotio__2CB9556BE863DD15");
+            entity.HasKey(e => e.PromotionId).HasName("PK__promotio__2CB9556BA6F017F5");
 
             entity.ToTable("promotion_history");
 
@@ -338,7 +347,7 @@ public partial class HumanResourceManagementContext : DbContext
             entity.HasOne(d => d.Employee).WithMany(p => p.PromotionHistories)
                 .HasForeignKey(d => d.EmployeeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__promotion__emplo__5FB337D6");
+                .HasConstraintName("FK__promotion__emplo__74AE54BC");
 
             entity.HasOne(d => d.NewPositionNavigation).WithMany(p => p.PromotionHistoryNewPositionNavigations)
                 .HasForeignKey(d => d.NewPosition)
@@ -351,7 +360,7 @@ public partial class HumanResourceManagementContext : DbContext
 
         modelBuilder.Entity<PromotionRequest>(entity =>
         {
-            entity.HasKey(e => e.RequestId).HasName("PK__promotio__18D3B90F828F4C91");
+            entity.HasKey(e => e.RequestId).HasName("PK__promotio__18D3B90FA7D2BE4F");
 
             entity.ToTable("promotion_request", tb => tb.HasTrigger("trg_AutoInsertPromotion"));
 
@@ -375,7 +384,7 @@ public partial class HumanResourceManagementContext : DbContext
 
             entity.HasOne(d => d.ApprovedByNavigation).WithMany(p => p.PromotionRequestApprovedByNavigations)
                 .HasForeignKey(d => d.ApprovedBy)
-                .HasConstraintName("FK__promotion__appro__1F98B2C1");
+                .HasConstraintName("FK__promotion__appro__7B5B524B");
 
             entity.HasOne(d => d.AssignedToNavigation).WithMany(p => p.PromotionRequestAssignedToNavigations)
                 .HasForeignKey(d => d.AssignedTo)
@@ -384,27 +393,27 @@ public partial class HumanResourceManagementContext : DbContext
             entity.HasOne(d => d.CurrentPosition).WithMany(p => p.PromotionRequestCurrentPositions)
                 .HasForeignKey(d => d.CurrentPositionId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__promotion__curre__1CBC4616");
+                .HasConstraintName("FK__promotion__curre__787EE5A0");
 
             entity.HasOne(d => d.Employee).WithMany(p => p.PromotionRequestEmployees)
                 .HasForeignKey(d => d.EmployeeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__promotion__emplo__1BC821DD");
+                .HasConstraintName("FK__promotion__emplo__778AC167");
 
             entity.HasOne(d => d.RequestedByNavigation).WithMany(p => p.PromotionRequestRequestedByNavigations)
                 .HasForeignKey(d => d.RequestedBy)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__promotion__reque__1EA48E88");
+                .HasConstraintName("FK__promotion__reque__7A672E12");
 
             entity.HasOne(d => d.SuggestedPosition).WithMany(p => p.PromotionRequestSuggestedPositions)
                 .HasForeignKey(d => d.SuggestedPositionId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__promotion__sugge__1DB06A4F");
+                .HasConstraintName("FK__promotion__sugge__797309D9");
         });
 
         modelBuilder.Entity<RefreshToken>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__RefreshT__3214EC072A76D0EE");
+            entity.HasKey(e => e.Id).HasName("PK__RefreshT__3214EC07903F7EDB");
 
             entity.Property(e => e.AddedDate)
                 .HasDefaultValueSql("(getdate())")
@@ -418,6 +427,43 @@ public partial class HumanResourceManagementContext : DbContext
                 .HasForeignKey(d => d.EmployeeId)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_RefreshTokens_AspNetUsers");
+        });
+
+        modelBuilder.Entity<RequestForm>(entity =>
+        {
+            entity.HasKey(e => e.RequestId).HasName("PK__RequestF__33A8517A8653D0A2");
+
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.EndDate).HasColumnType("datetime");
+            entity.Property(e => e.ReviewedAt).HasColumnType("datetime");
+            entity.Property(e => e.StartDate).HasColumnType("datetime");
+            entity.Property(e => e.Status)
+                .HasMaxLength(50)
+                .HasDefaultValue("Pending");
+            entity.Property(e => e.Title).HasMaxLength(255);
+
+            entity.HasOne(d => d.Employee).WithMany(p => p.RequestFormEmployees)
+                .HasForeignKey(d => d.EmployeeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__RequestFo__Emplo__1BC821DD");
+
+            entity.HasOne(d => d.RequestType).WithMany(p => p.RequestForms)
+                .HasForeignKey(d => d.RequestTypeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__RequestFo__Reque__1CBC4616");
+
+            entity.HasOne(d => d.ReviewedByNavigation).WithMany(p => p.RequestFormReviewedByNavigations)
+                .HasForeignKey(d => d.ReviewedBy)
+                .HasConstraintName("FK__RequestFo__Revie__1DB06A4F");
+        });
+
+        modelBuilder.Entity<RequestType>(entity =>
+        {
+            entity.HasKey(e => e.RequestTypeId).HasName("PK__RequestT__4D328B830AE40E8D");
+
+            entity.Property(e => e.RequestTypeName).HasMaxLength(100);
         });
 
         modelBuilder.Entity<Role>(entity =>
@@ -459,7 +505,7 @@ public partial class HumanResourceManagementContext : DbContext
 
         modelBuilder.Entity<SkillCertificate>(entity =>
         {
-            entity.HasKey(e => e.CertificateId).HasName("PK__skill_ce__E2256D319003865A");
+            entity.HasKey(e => e.CertificateId).HasName("PK__skill_ce__E2256D3159F2D432");
 
             entity.ToTable("skill_certificates");
 

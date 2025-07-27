@@ -65,5 +65,9 @@ public partial class Employee
 
     public virtual ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
 
+    public virtual ICollection<RequestForm> RequestFormEmployees { get; set; } = new List<RequestForm>();
+
+    public virtual ICollection<RequestForm> RequestFormReviewedByNavigations { get; set; } = new List<RequestForm>();
+
     public virtual Role? Role { get; set; }
 }
