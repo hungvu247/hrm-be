@@ -55,19 +55,25 @@ namespace human_resource_management.Repository
             };
 
             var paged = await query.Skip(skip).Take(top).ToListAsync();
-
             var items = paged.Select(dept => new DepartmentDto
             {
                 DepartmentId = dept.DepartmentId,
                 DepartmentName = dept.DepartmentName,
                 Description = dept.Description,
-                Employees = dept.Employees.Select(e => new EmployeeDto
+                LeadEmployee = dept.LeadEmployee != null ? new EmployeeDto
+                {
+                    EmployeeId = dept.LeadEmployee.EmployeeId,
+                    FullName =dept.LeadEmployee.LastName,
+                    Position = dept.LeadEmployee.Position?.PositionName ?? "No Position"
+                } : null, 
+                Employees = dept.Employees?.Select(e => new EmployeeDto
                 {
                     EmployeeId = e.EmployeeId,
-                    FullName = e.FirstName + " " + e.LastName,
-                    Position = e.Position?.PositionName
-                }).ToList()
-            });
+                    FullName = $"{e.FirstName} {e.LastName}",
+                    Position = e.Position?.PositionName ?? "No Position"
+                }).ToList() ?? new List<EmployeeDto>() // Ensure that EmployeeDto is used here too
+            }).ToList();
+
 
             return new
             {
@@ -98,7 +104,13 @@ namespace human_resource_management.Repository
                     EmployeeId = e.EmployeeId,
                     FullName = e.FirstName + " " + e.LastName,
                     Position = e.Position?.PositionName
-                }).ToList()
+                }).ToList(),
+                LeadEmployee = dept.LeadEmployee != null ? new EmployeeDto
+                {
+                    EmployeeId = dept.LeadEmployee.EmployeeId,
+                    FullName = dept.LeadEmployee.LastName,
+                    Position = dept.LeadEmployee.Position?.PositionName ?? "No Position"
+                } : null,
             };
         }
 

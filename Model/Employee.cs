@@ -1,4 +1,5 @@
-﻿using System;
+﻿using human_resource_management.Dto;
+using System;
 using System.Collections.Generic;
 
 namespace human_resource_management.Model;
@@ -70,4 +71,5 @@ public partial class Employee
     public virtual ICollection<RequestForm> RequestFormReviewedByNavigations { get; set; } = new List<RequestForm>();
 
     public virtual Role? Role { get; set; }
+
 }

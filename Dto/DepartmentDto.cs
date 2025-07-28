@@ -1,4 +1,6 @@
-﻿namespace human_resource_management.Dto
+﻿using human_resource_management.Model;
+
+namespace human_resource_management.Dto
 {
     public class DepartmentDto
     {
@@ -7,6 +9,8 @@
         public string? Description { get; set; }
         public string? Status { get; set; }
         public List<EmployeeDto> Employees { get; set; } = new();
+
+        public EmployeeDto LeadEmployee { get; set; }
     }
     public class EmployeeDto
     {

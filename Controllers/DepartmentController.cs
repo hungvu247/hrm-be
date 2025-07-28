@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using human_resource_management.Dto;
+using human_resource_management.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
@@ -13,9 +15,11 @@ namespace human_resource_management.Controllers
     public class DepartmentController : ControllerBase
     {
         private readonly Service.DepartmentService _departmentService;
-        public DepartmentController(Service.DepartmentService departmentService)
+        private   readonly HumanResourceManagementContext _humanResourceManagementContext;
+        public DepartmentController(Service.DepartmentService departmentService ,HumanResourceManagementContext humanResourceManagement)
         {
             _departmentService = departmentService;
+            _humanResourceManagementContext = humanResourceManagement;
         }
 
 
@@ -35,7 +39,7 @@ namespace human_resource_management.Controllers
 
         [HttpGet]
         [Produces("application/json")]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin,HR")]
         public async Task<IActionResult> GetDepartments(
      string search = "",
      int skip = 0,
@@ -112,6 +116,25 @@ namespace human_resource_management.Controllers
             await _departmentService.DeleteDepartmentAsync(id);
             return NoContent();
         }
+        [HttpGet("employee-department/{departmentId}")]
+        [Authorize(Roles = "HR,admin")]
+        public async Task<ActionResult>getEmployeeByDepartment(int departmentId)
+        {
+            var employees = _humanResourceManagementContext.Employees.Where(e=>e.DepartmentId == departmentId).Select(e=>new EmployeeDto
+            {
+                EmployeeId=e.EmployeeId,
+                FullName = e.FirstName+" "+ e.LastName,
+                Position=e.Position.PositionName
+            }).ToList();
+            if (employees == null)
+            {
+                return NoContent();
+            }
+            return Ok(employees);
+
+
+        }
+
 
 
     }
